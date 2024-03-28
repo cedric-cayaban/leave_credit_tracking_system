@@ -7,6 +7,4 @@
     $empTypeSql = $con -> query('SELECT * FROM employee_type');
     $designationSql = $con -> query('SELECT * FROM designation');
 
-
-
 ?>
