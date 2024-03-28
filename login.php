@@ -52,7 +52,7 @@
             password: password
         },
         function(data, status){
-            if(data=='success'){
+            if(data === 'success'){
                 $('#message').html('Logged in').css('color', 'green');
             }
             else{
