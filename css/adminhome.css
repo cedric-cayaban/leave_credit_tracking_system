@@ -1,0 +1,13 @@
+.bg-primary-custom {
+    background-color: #1935DA !important;
+}
+
+
+.nav-pills li a:hover{
+    background-color: white;
+}
+ 
+.nav-pills li a:hover span, .nav-pills li a:hover i {
+        color: #1935DA;
+}
+

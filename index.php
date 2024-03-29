@@ -33,7 +33,7 @@
     
 
     <div id="formFooter">
-      <a class="underlineHover" href="register.php">Register</a>
+      <a class="underlineHover" href="register_selection.php">Register</a>
     </div>
 
   </div>
@@ -52,8 +52,15 @@
             password: password
         },
         function(data, status){
-            if(data === 'success'){
-                $('#message').html('Logged in').css('color', 'green');
+          data = data.trim();
+            if(data === 'success1'){
+                
+                window.location.href = 'user/home.php';
+            }
+            else if(data === 'success2'){
+                
+                window.location.href = 'admin/home.php';
+                
             }
             else{
                 $('#message').html('Invalid credentials').css('color', 'red');

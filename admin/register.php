@@ -1,5 +1,5 @@
 <?php
-    require('config.php');
+    require('../config.php');
 
 ?>
 
@@ -9,7 +9,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="css/register.css?ver=0007">
+    <link rel="stylesheet" href="../css/register.css?ver=0008">
 
         <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -22,7 +22,7 @@
     
 <div class="container">
     <div class="header">
-        <h1>Employee Registration</h1>
+        <h1>Admin Registration</h1>
     </div>
     <div class="card card-outline card-primary">
         <div class="card-body">
@@ -51,13 +51,13 @@
                                 <label for="address">Address</label>
                                 <textarea rows="5" name="address" id="address" class="form-control rounded-0" style="resize:none !important" ><?php echo isset($meta['address']) ? $meta['address']: '' ?></textarea>
                             </div>
-                            <div class="form-group">
-                                <label for="contact">Contact #</label>
-                                <input type="text" name="contact" id="contact" class="form-control rounded-0" value="<?php echo isset($meta['contact']) ? $meta['contact']: '' ?>" >
-                            </div>
+                            
                         </div>
                         <div class="col-6">
-                            
+                            <div class="form-group">
+                                <label for="contact">Contact #</label>
+                                <input type="number" name="contact" id="contact" class="form-control rounded-0" value="<?php echo isset($meta['contact']) ? $meta['contact']: '' ?>" >
+                            </div>
                             <div class="form-group">
                                 <label for="department">Department</label>
                                 <select name="department" id="department" class="form-control select2bs4 select2 rounded-0" data-placeholder="Please Select Department here" reqiured>
@@ -67,33 +67,7 @@
                                     <?php } ?>
                                 </select>
                             </div>
-                            <div class="form-group">
-                                <label for="employee_type">Employee type</label>
-                                <select name="employee_type" id="employee_type" class="form-control select2bs4 select2 rounded-0" data-placeholder="Please Select Department here" reqiured>
-                                    <option value="" disabled <?php echo !isset($meta['employee_id']) ? 'selected' : '' ?>></option>
-                                    <?php while($employeeType = $empTypeSql -> fetch_assoc()){ ?>
-                                        <option value="<?=$employeeType['type_id'] ?>"><?=$employeeType['type_name']?></option>
-                                    <?php } ?>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="rank">Academic rank (Optional)</label>
-                                <select name="rank" id="rank" class="form-control select2bs4 select2 rounded-0" data-placeholder="Please Select Department here" reqiured>
-                                    <option value="" disabled <?php echo !isset($meta['employee_id']) ? 'selected' : '' ?>></option>
-                                    <?php while($rank = $rankSql -> fetch_assoc()){ ?>
-                                        <option value="<?=$rank['rank_id']?>"><?=$rank['rank_name']?></option>
-                                    <?php } ?>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="designation">Designation (Optional)</label>
-                                <select name="designation" id="designation" class="form-control select2bs4 select2 rounded-0" data-placeholder="Please Select Designation here" reqiured>
-                                    <option value="" <?php echo !isset($meta['designation_id']) ? 'selected' : '' ?>></option>
-                                    <?php while($designation = $designationSql -> fetch_assoc()){ ?>
-                                        <option value="<?=$designation['designation_id']?>"><?=$designation['designation_name']?></option>
-                                    <?php } ?>
-                                </select>
-                            </div>
+                            
                             <div class="form-group">
                                 <label for="username">Username</label>
                                 <input type="text" name="username" id="username" class="form-control rounded-0"   autocomplete="off">
@@ -122,50 +96,46 @@
             var birthdate = $('#birthdate').val();
             var address = $('#address').val();
             var contact = $('#contact').val();
-            var employee_type = $('#employee_type').val();
-            var rank = $('#rank').val();
             var department = $('#department').val();
-            var designation = $('#designation').val();
             var username = $('#username').val();
             var password = $('#password').val();
             
-            $.post('ajax/ajax_register.php',
+            $.post('../ajax/ajax_register/register_admin.php',
             {
                 fname: fname, 
-                contact: contact,
                 mname: mname, 
-                employee_type: employee_type,
-                lname: lname, 
-                rank: rank,
+                lname: lname,
+                address: address,  
+                contact: contact,
                 department: department,
                 birthdate: birthdate, 
-                designation: designation,
-                address: address, 
                 username: username,
                 password: password
             }, 
             function(data, status){
+                data = data.trim();
                 if(data === 'success'){
                     Swal.fire({
-                            icon: 'success',
-                            title: 'Success',
-                            text: 'Registration successful'
-                        }).then((result) =>{
-                            if(result.isConfirmed){
-                                window.location.href = 'login.php';
-                            }
-                        });
+                        icon: 'success',
+                        title: 'Success',
+                        text: 'Registration successful'
+                    }).then((result) =>{
+                        if(result.isConfirmed){
+                            window.location.href = '../index.php';
+                        }
+                    });
                 }
                 else{
                     Swal.fire({
                         icon: 'error',
                         title: 'Error',
-                        text: 'Please fill up all required fields',
+                        text: data,
                     });
                 }
             });
         });
 </script>
+
 
     
 </body>
