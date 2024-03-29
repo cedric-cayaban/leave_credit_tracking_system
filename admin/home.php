@@ -15,7 +15,7 @@
  
     <title>Document</title>
 </head>
-<body>
+<body onload="loadContent('dashboard.php')">
  
     <div class="container-fluid">
     <div class="row flex-nowrap">
@@ -46,7 +46,7 @@
                         </a>
                     </li>
                     
-                    <li class="nav-item py-2 py-sm-0">
+                    <!-- <li class="nav-item py-2 py-sm-0">
                         <a href="#" class="nav-link text-white" data-bs-toggle="collapse" data-bs-target="#listsMenu">
                             <i class="fas fa-list"></i><span class="fs-5 ms-3 d-none d-sm-inline">Lists</span>
                         </a>
@@ -70,7 +70,7 @@
                                 </li>
                             </ul>
                         </div>
-                    </li>
+                    </li> -->
                   
                 </ul>
                 

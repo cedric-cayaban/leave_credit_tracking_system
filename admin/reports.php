@@ -25,7 +25,7 @@
 <body>
 <div class="card card-outline card-primary mt-4" id="load-content">
 	<div class="card-header d-flex justify-content-between">
-		<h3 class="card-title">List of Leave Requests</h3>
+		<h3 class="card-title">Leave Report History</h3>
 		<!-- <div class="card-tools">
 			<a href="?page=leave_applications/manage_application" class="btn btn-flat btn-primary"><span class="fas fa-plus"></span>  Create New</a>
 		</div> -->
@@ -37,8 +37,8 @@
 				
 				<colgroup>
 					<col width="10%">
-					<col width="25%">
-					<col width="25%">
+					<col width="15%">
+					<col width="15%">
 					<col width="15%">
 					<col width="15%">
 					<col width="10%">
@@ -48,14 +48,14 @@
 						<th>ID</th>
 						<th>Employee</th>
 						<th>Leave Type</th>
+						<th>Date</th>
 						<th>Days</th>
-						<th>Reason</th>
-						<th>Action</th>
+						<th>Status</th>
 					</tr>
 				</thead>
 				<tbody>
                         <?php
-                            while($employee = $requestSql -> fetch_assoc()){
+                            while($employee = $reportSql -> fetch_assoc()){
                         ?>
 						<tr>
 							
@@ -68,22 +68,18 @@
                             </td>
 							
 							<td><?=$employee['leave_name']?></td>
-							<td><?=$employee['days']?></td>
+							<td><?= date('F j, Y', strtotime($employee['date'])) ?></td>
 							<td>
-                                <button class="btn btn-flat btn-default btn-sm view_application" type="button" data-reason="<?=$employee['reason']?>">
-                                    <i class="fa fa-eye text-primary"></i> View
-                                </button>
+                                <?=$employee['days']?>
 							</td>
 							<td>
-                                <div class="dropdown">
-                                    <button class="btn btn-flat btn-default btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Action
-                                    </button>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <li><a onclick="reqAction('<?=$employee['leave_id']?>', 'accept')" id="accept" class="dropdown-item" href="#"><i class="fa-solid fa-circle-check text-success"></i> Accept</a></li>
-                                        <li><a onclick="reqAction('<?=$employee['leave_id']?>', 'reject')" id="reject" class="dropdown-item update_status" href="#"><i class="fa-solid fa-circle-xmark text-danger"></i> Reject</a></li>
-                                    </ul>
-                                </div>
+                            <?php if($employee['status'] == 'Accepted'): ?>
+									<b class="text-success">Approved</b>
+								<?php elseif($employee['status'] == 'Rejected'): ?>
+									<b class="text-danger">Denied</b>
+								<?php else: ?>
+									<b class="text-primary">Pending</b>
+								<?php endif; ?>
 
 							</td>
 						</tr>

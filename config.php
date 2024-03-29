@@ -19,6 +19,13 @@
     WHERE employee_leave.status = 'Pending'"
     );
 
+    $reportSql = $con -> query("SELECT * FROM 
+    employee_leave 
+    INNER JOIN employee ON employee_leave.employee_id=employee.employee_id 
+    INNER JOIN leave_type ON employee_leave.leave_type = leave_type.type_id 
+    WHERE employee_leave.status = 'Accepted' OR employee_leave.status = 'Rejected'"
+    );
+
     
 
      //VERIFY ACC
@@ -32,4 +39,6 @@
      WHERE employee.acc_status = 'Pending'
      ");
     
+
+   
 ?>
