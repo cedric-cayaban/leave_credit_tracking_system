@@ -1,6 +1,7 @@
 <?php
 
     $con = new mysqli('localhost', 'root', '', 'leave_system');
+    
 
     //SINGLE TABLE SQL SELECT
     $departmentSql = $con -> query('SELECT * FROM department');
