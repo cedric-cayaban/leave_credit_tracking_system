@@ -5,14 +5,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="../css/contents.css">
+    <link rel="stylesheet" href="../css/contents.css?ver=0001">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/9c6f27a8d7.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-KyZXEAg3QhqLMpG8r+I4dHt0YIvI3Mpjs4L+AdfYqlA3oWeBSwF8umNikyJZYhEN" crossorigin="anonymous"></script>
     <title>Document</title>
 </head>
@@ -81,15 +80,13 @@
                                 </button>
 							</td>
 							<td>
-                                <div class="dropdown">
-                                    <button class="btn btn-flat btn-default btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Action
-                                    </button>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <li><a onclick="reqAction('<?=$employee['leave_id']?>', 'accept')" id="accept" class="dropdown-item" href="#"><i class="fa-solid fa-circle-check text-success"></i> Accept</a></li>
-                                        <li><a onclick="reqAction('<?=$employee['leave_id']?>', 'reject')" id="reject" class="dropdown-item update_status" href="#"><i class="fa-solid fa-circle-xmark text-danger"></i> Reject</a></li>
-                                    </ul>
+                            <div class="dropdown">
+                                <button class="btn btn-flat btn-default btn-sm dropdown-toggle" onclick="toggleDropdown()" aria-expanded="false">Action</button>
+                                <div class="dropdown-content" id="dropdownMenu">
+                                    <a href="#" onclick="reqAction('<?=($employee['leave_id'])?>', 'accept')"><i class="fa-solid fa-circle-check text-success"></i> Accept</a>
+                                    <a href="#" onclick="reqAction('<?=($employee['leave_id'])?>', 'reject')"><i class="fa-solid fa-circle-xmark text-danger"></i> Reject</a>
                                 </div>
+                            </div>
 
 							</td>
 						</tr>
@@ -109,6 +106,15 @@
 
 
 <script>
+
+    function toggleDropdown() {
+        var dropdownContent = document.getElementById("dropdownMenu");
+        if (dropdownContent.style.display === "block") {
+            dropdownContent.style.display = "none";
+        } else {
+            dropdownContent.style.display = "block";
+        }
+    }
 
     $(".view_application").click(function() {
         var reason = $(this).data('reason');
@@ -153,8 +159,7 @@
     </div>
 </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-KyZXEAg3QhqLMpG8r+I4dHt0YIvI3Mpjs4L+AdfYqlA3oWeBSwF8umNikyJZYhEN" crossorigin="anonymous"></script>
+
 
 </body>
 </html>
