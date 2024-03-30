@@ -89,7 +89,6 @@
         <!-- ETO YUNG DIV NG CONTENTS NA LUMALABAS KADA PINDOT SA SIDEBAR -->
 
         <div class="col-md-8 col-lg-10 bg-light">
-           <!-- DITO NAGLOLOAD YUNG MGA CONTENT KADA PINDOT SA SIDEBAR, SEE LINE 100+ SA OTHER ADMIN PHP FILE PARA SA PROCESS-->
                 <div id="contents">
                 
                 </div>

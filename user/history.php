@@ -1,5 +1,6 @@
 <?php
     require('../config.php');
+    session_start();
 ?>
 
 <!DOCTYPE html>
@@ -60,6 +61,15 @@
 				</thead>
 				<tbody>
                         <?php
+                            if(isset($_SESSION['employee_id'])){
+                                $employeeId = $_SESSION['employee_id'];
+                            }
+                            $reportSql = $con -> query("SELECT * FROM 
+                                employee_leave 
+                                INNER JOIN employee ON employee_leave.employee_id=employee.employee_id 
+                                INNER JOIN leave_type ON employee_leave.leave_type = leave_type.type_id 
+                                WHERE employee.employee_id = '$employeeId' AND  employee_leave.status = 'Accepted' OR employee_leave.status = 'Rejected'" 
+                            );
                             while($employee = $reportSql -> fetch_assoc()){
                         ?>
 						<tr>

@@ -4,6 +4,11 @@
         session_destroy();
         echo 'success';
     }
+
+    if(isset($_SESSION['employee_id'])){
+        session_destroy();
+        echo 'success';
+    }
     
     
 ?>

@@ -27,7 +27,16 @@
     WHERE employee_leave.status = 'Accepted' OR employee_leave.status = 'Rejected'"
     );
 
-    
+    //ALL INFORMATION
+    // $infoSql = $con -> query("SELECT employee.employee_id
+    // FROM employee 
+    // LEFT JOIN leave_type ON employee_leave.leave_type = leave_type.type_id 
+    // LEFT JOIN employee_type ON employee.employee_type = employee_type.type_id 
+    // LEFT JOIN academic_rank ON employee.academic_rank = academic_rank.rank_id
+    // LEFT JOIN designation ON employee.designation = designation.designation_id
+    // LEFT JOIN department ON employee.department = department.dept_id
+    // WHERE employee.employee_id = '$employeeId'
+    // "); 
 
      //VERIFY ACC
      $empVerifySql = $con -> query("SELECT employee.employee_id, employee.fname, employee.lname, employee_type.type_name, academic_rank.rank_name, designation.designation_name 

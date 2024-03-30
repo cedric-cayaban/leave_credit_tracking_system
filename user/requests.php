@@ -1,11 +1,12 @@
 <?php
     require('../config.php');
+	session_start();
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- <link rel="stylesheet" href="../css/contents.css"> -->
+    <link rel="stylesheet" href="../css/contents.css?ver=0001">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -31,10 +32,10 @@
 				
 				<colgroup>
 					<col width="10%">
-					<col width="25%">
-					<col width="25%">
 					<col width="15%">
 					<col width="15%">
+					<col width="10%">
+					<col width="10%">
 					<col width="10%">
 				</colgroup>
 				<thead>
@@ -43,22 +44,31 @@
 						<th>Employee</th>
 						<th>Leave Type</th>
 						<th>Days</th>
-						<th>Reason</th>
+						<th>Status</th>
 						<th>Action</th>
 					</tr>
 				</thead>
 				<tbody>
                         <?php
+							if(isset($_SESSION['employee_id'])){
+								$employeeId = $_SESSION['employee_id'];
+							}
+							$requestSql = $con -> query("SELECT * FROM 
+								employee_leave 
+								INNER JOIN employee ON employee_leave.employee_id=employee.employee_id 
+								INNER JOIN leave_type ON employee_leave.leave_type = leave_type.type_id 
+								WHERE employee_leave.status = 'Pending' AND employee.employee_id = '$employeeId'"
+							);
                             while($employee = $requestSql -> fetch_assoc()){
                         ?>
 						<tr>
 							
 							<td>
-                            <small>ID: <?=$employee['employee_id']?></small><br>
+                            <small><?=$employee['employee_id']?></small><br>
                             </td>
 							<td>
 								
-								<small>Name: <?=$employee['fname']?> </small>
+								<small><?=$employee['fname']?> </small>
                             </td>
 							
 							<td><?=$employee['leave_name']?></td>
@@ -113,9 +123,7 @@
 
 <script>
 
-    $(".view_application").click(function(){
-        $('#applicationDetailsModal').modal('show');
-    });
+							
     
     
 </script>
