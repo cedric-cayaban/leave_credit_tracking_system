@@ -26,9 +26,14 @@
 <div class="card card-outline card-primary mt-4" id="load-content">
 	<div class="card-header d-flex justify-content-between">
 		<h3 class="card-title">Leave Report History</h3>
-		<!-- <div class="card-tools">
-			<a href="?page=leave_applications/manage_application" class="btn btn-flat btn-primary"><span class="fas fa-plus"></span>  Create New</a>
-		</div> -->
+
+        <!-- ANDITO BUTTON PARA SA CREATE NEW NAKA COMMENT OUT LANG, MERON YAN SA LAHAT NG PHP FILE SA ADMIN -->
+
+            <!-- <div class="card-tools">
+                <a href="?page=leave_applications/manage_application" class="btn btn-flat btn-primary"><span class="fas fa-plus"></span>  Create New</a>
+            </div> -->
+
+        <!-- ANDITO BUTTON PARA SA CREATE NEW, MERON YAN SA LAHAT NG PHP FILE SA ADMIN -->
 	</div>
 	<div class="card-body">
 		
@@ -36,11 +41,11 @@
 			<table class="table table-hover table-stripped">
 				
 				<colgroup>
+                    <col width="10%">
+					<col width="15%">
+					<col width="15%">
+					<col width="15%">
 					<col width="10%">
-					<col width="15%">
-					<col width="15%">
-					<col width="15%">
-					<col width="15%">
 					<col width="10%">
 				</colgroup>
 				<thead>
@@ -106,24 +111,7 @@
         $('#applicationDetailsModal').modal('show');
     });
 
-    function reqAction(leaveId, action){
-        
-
-       
-        $.post('../ajax/request_action.php', 
-        {
-            leaveId: leaveId,
-            action: action
-        }, 
-        function(data, status){
-            if(data === 'success'){
-                $('#contents').load('requests.php');
-            }
-            else{
-                alert('Error');
-            }
-        });
-    }
+    
     
     
 </script>

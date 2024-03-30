@@ -26,9 +26,15 @@
 <div class="card card-outline card-primary mt-4" id="load-content">
 	<div class="card-header d-flex justify-content-between">
 		<h3 class="card-title">List of Leave Requests</h3>
+
+    <!-- NUMBER 2 -->
+    <!-- ANDITO BUTTON PARA SA CREATE NEW NAKA COMMENT OUT LANG, MERON YAN SA LAHAT NG PHP FILE SA ADMIN -->  
+
 		<!-- <div class="card-tools">
-			<a href="?page=leave_applications/manage_application" class="btn btn-flat btn-primary"><span class="fas fa-plus"></span>  Create New</a>
+			<a href="" class="btn btn-flat btn-primary"><span class="fas fa-plus"></span>Create New</a>
 		</div> -->
+
+    <!-- ANDITO BUTTON PARA SA CREATE NEW NAKA COMMENT OUT LANG, MERON YAN SA LAHAT NG PHP FILE SA ADMIN -->
 	</div>
 	<div class="card-body">
 		
@@ -36,11 +42,11 @@
 			<table class="table table-hover table-stripped">
 				
 				<colgroup>
+                    <col width="10%">
+					<col width="15%">
+					<col width="15%">
 					<col width="10%">
-					<col width="25%">
-					<col width="25%">
-					<col width="15%">
-					<col width="15%">
+					<col width="10%">
 					<col width="10%">
 				</colgroup>
 				<thead>
@@ -59,12 +65,12 @@
                         ?>
 						<tr>
 							
+                           
 							<td>
-                            <small><?=$employee['employee_id']?></small><br>
+                                <small><?=$employee['employee_id']?></small><br>
                             </td>
 							<td>
-								
-								<small><?=$employee['fname'] . ' ' . $employee['lname']?> </small>
+							    <small><?=$employee['fname'] . ' ' . $employee['lname']?> </small>
                             </td>
 							
 							<td><?=$employee['leave_name']?></td>
@@ -110,17 +116,18 @@
         $('#applicationDetailsModal').modal('show');
     });
 
+//ETO PROCESS PARA SA PAG ACCEPT OR REJECT NG LEAVE
     function reqAction(leaveId, action){
         
 
-       
+    //TINATAWAG NYA YUNG AJAX PHP FILE
         $.post('../ajax/request_action.php', 
         {
             leaveId: leaveId,
             action: action
         }, 
         function(data, status){
-            if(data === 'success'){
+            if(data === 'success'){ //PAG SUCCESS NILOLOAD NYA ULIT YUNG CONTENTS PARA MAGREFRESH
                 $('#contents').load('requests.php');
             }
             else{
@@ -128,7 +135,7 @@
             }
         });
     }
-    
+ //ETO PROCESS PARA SA PAG ACCEPT OR REJECT NG LEAVE    
     
 </script>
 

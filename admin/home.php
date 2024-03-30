@@ -50,12 +50,32 @@
                             <i class="fas fa-chart-bar"></i><span class="fs-5 ms-3 d-none d-sm-inline">Reports</span>
                         </a>
                     </li>
+                <!-- NUMBER 3 -->
+                    <!-- <li class="nav-item py-2 py-sm-0">
+                        <a href="#" class="nav-link text-white" onclick="toggleDropdowns()">
+                            <i class="fas fa-list"></i><span class="fs-5 ms-3 d-none d-sm-inline">Lists</span>
+                        </a>
+                    </li>
+                    <div id="listDropdown" style="display: none; margin-left: 20px;">
+                        <ul class="nav nav-pills flex-column mt-1">
+                            <li class="nav-item py-2 py-sm-0">
+                                <a href="#" class="nav-link text-white" onclick="">
+                                    <i class="fas fa-user-tag"></i><span class="fs-6 ms-3 d-none d-sm-inline">Designation List</span>
+                                </a>
+                            </li>
+                            <li class="nav-item py-2 py-sm-0">
+                                <a href="#" class="nav-link text-white" onclick="">
+                                    <i class="fas fa-file-alt"></i><span class="fs-6 ms-3 d-none d-sm-inline">Leave Type List</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div> -->
                 </ul>
                 
             </div>
             
-            <!-- Logout Link -->
-            <div class="mb-5 p-2"> <!-- Adjusted margin-top here -->
+           
+            <div class="mb-5 p-2"> 
             <ul class="nav nav-pills flex-column mt-4">
                 <li class="nav-item py-2 py-sm-0">
                     <a href="#" class="nav-link text-white" onclick="logout()">
@@ -66,24 +86,41 @@
             </div>
             
         </div>
-        
+        <!-- ETO YUNG DIV NG CONTENTS NA LUMALABAS KADA PINDOT SA SIDEBAR -->
+
         <div class="col-md-8 col-lg-10 bg-light">
-           
+           <!-- DITO NAGLOLOAD YUNG MGA CONTENT KADA PINDOT SA SIDEBAR, SEE LINE 100+ SA OTHER ADMIN PHP FILE PARA SA PROCESS-->
                 <div id="contents">
                 
                 </div>
             
         </div>
+
+         <!-- ETO YUNG DIV NG CONTENTS NA LUMALABAS KADA PINDOT SA SIDEBAR -->
     </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     
 <script>
-    function loadContent(page) { 
-        $('#contents').load(page);
+
+    //  ETO YUNG FUNCTION NA NAGLOLOAD NUNG MGA LALABAS NA CONTENTS KADA PUMIPINDOT SA SIDEBAR
+
+    function loadContent(page) { // YUNG PARAMETER NYA EH YUNG FILE NAME NG PHP, CTRL F MO NALANG YUNG NAME NG FUNCTION PARA MAGETS MO PROCESS
+        $('#contents').load(page); // NILOLOAD NYA YUNG PHP FILE SA #CONTENT NA DIV
     }
 
+    //  ETO YUNG FUNCTION NA NAGLOLOAD NUNG MGA LALABAS NA CONTENTS KADA PUMIPINDOT SA SIDEBAR
+
+
+    function toggleDropdowns() {
+        var listDropdown = document.getElementById("listDropdown");
+        if (listDropdown.style.display === "none") {
+            listDropdown.style.display = "block";
+        } else {
+            listDropdown.style.display = "none";
+        }
+    }
     function logout() {
 
         $.post('../ajax/logout.php', 
