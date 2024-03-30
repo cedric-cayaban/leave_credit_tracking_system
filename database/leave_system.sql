@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 29, 2024 at 03:52 PM
+-- Generation Time: Mar 30, 2024 at 05:43 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -164,7 +164,7 @@ CREATE TABLE `employee_leave` (
   `status` varchar(50) NOT NULL,
   `reason` varchar(150) NOT NULL,
   `days` decimal(10,1) NOT NULL,
-  `credit_cost` decimal(10,1) NOT NULL
+  `credit_cost` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
@@ -172,7 +172,11 @@ CREATE TABLE `employee_leave` (
 --
 
 INSERT INTO `employee_leave` (`leave_id`, `employee_id`, `leave_type`, `date`, `status`, `reason`, `days`, `credit_cost`) VALUES
-(5, '21-UR-0183', 1, '2024-03-17', 'Pending', 'sick', 0.5, 1.0);
+(5, '21-UR-0183', 1, '2024-03-17', 'Accepted', 'sick', 0.5, 1),
+(6, '21-UR-0186', 2, '2024-03-19', 'Accepted', 'sick na', 1.0, 1),
+(7, '21-UR-0183', 1, '2024-03-12', 'Rejected', 'pagod na', 1.0, 1),
+(8, '21-UR-0186', 1, '2024-03-05', 'Pending', 'im sick as heck', 1.0, 1),
+(9, '21-UR-0183', 1, '2024-02-06', 'Pending', 'dunno', 1.0, 1);
 
 -- --------------------------------------------------------
 
@@ -303,7 +307,7 @@ ALTER TABLE `designation`
 -- AUTO_INCREMENT for table `employee_leave`
 --
 ALTER TABLE `employee_leave`
-  MODIFY `leave_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `leave_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `employee_type`
