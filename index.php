@@ -13,64 +13,55 @@
 </head>
 
 <body>
-<!-- NUMBER 1 -->
-<div class="wrapper fadeInDown">
-  <div id="formContent">
-    
-    <div class="header">
-        <img class="logo" src="images/logo.png" alt="Leave Tracker Logo">
+    <!-- NUMBER 1 -->
+    <div class="wrapper fadeInDown">
+        <div id="formContent">
+        
+            <div class="header">
+                <img class="logo" src="images/logo.png.png" alt="Leave Tracker Logo">
+            </div>
+        
+            <div id="loginForm">
+                <input type="text" id="username" class="fadeIn second" name="username" placeholder="Username" required>
+                <input type="password" id="password" class="fadeIn third" name="password" placeholder="Password" required> 
+                <p id='message'></p>
+                <input type="button" class="fadeIn fourth" id="submitBtn" value="Log In">
+            </div>
+        
+            <div id="formFooter">
+                <a class="underlineHover" href="register_selection.php">Register</a>
+            </div>
+        
+        </div>
     </div>
 
-   
-    <div id="loginForm">
-      <input type="text" id="username" class="fadeIn second" name="username" placeholder="Username" required>
-      <input type="password" id="password" class="fadeIn third" name="password" placeholder="Password" required> 
-      <p id='message'></p>
-      <input type="button" class="fadeIn fourth" id="submitBtn" value="Log In">
-      
-    </div>
-
-    
-
-    <div id="formFooter">
-      <a class="underlineHover" href="register_selection.php">Register</a>
-    </div>
-
-  </div>
-</div>
-
-<script>
-
-    $("#submitBtn").click(
-      function () {
-        var username = $("#username").val();
-        var password = $("#password").val();
-       
-        $.post('ajax/ajax_login.php', 
-        {
-            username: username,
-            password: password
-        },
-        function(data, status){
-          data = data.trim();
-            if(data === 'success1'){
-                
-                window.location.href = 'user/home.php';
-            }
-            else if(data === 'success2'){
-                
-                window.location.href = 'admin/home.php';
-                
-            }
-            else{
-                $('#message').html('Invalid credentials').css('color', 'red');
-            }
-        });
-    });
-
-
-
-</script>
-
+    <script>
+        $("#submitBtn").click(
+            function () {
+                var username = $("#username").val();
+                var password = $("#password").val();
+            
+                $.post('ajax/ajax_login.php', 
+                {
+                    username: username,
+                    password: password
+                },
+                function(data, status){
+                    data = data.trim();
+                    if(data === 'success1'){
+                        
+                        window.location.href = 'user/home.php';
+                    }
+                    else if(data === 'success2'){
+                        
+                        window.location.href = 'admin/home.php';
+                        
+                    }
+                    else{
+                        $('#message').html('Invalid credentials').css('color', 'red');
+                    }
+                });
+            });
+    </script>
 </body>
 </html>
