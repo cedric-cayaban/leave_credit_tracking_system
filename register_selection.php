@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/user-type.css?ver=0001">
+    <link rel="stylesheet" href="css/user-type.css?ver=0003">
     <script src="https://kit.fontawesome.com/979ee355d9.js" crossorigin="anonymous"></script>
     <title>Login</title>
 </head>
@@ -12,7 +12,7 @@
 <body>
     <div class="wrapper">
         <div class="header">
-            <img class="logo" src="images/boarding-logo.png" alt="Logo">
+            <img class="logo" src="images/logo.png.png" alt="Logo">
             
         </div>
 
