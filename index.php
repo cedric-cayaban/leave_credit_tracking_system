@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="css/login.css?ver=0002">
+    <link rel="stylesheet" href="css/login.css?ver=0003">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=3.0">
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
@@ -16,9 +16,10 @@
     <!-- NUMBER 1 -->
     <div class="wrapper fadeInDown">
         <div id="formContent">
-        
             <div class="header">
-                <img class="logo" src="images/logo.png.png" alt="Leave Tracker Logo">
+                <img class="logo" src="images/logo.png" alt="Leave Tracker Logo">
+                <h4>PANGASINAN STATE UNIVERSITY</h4>
+                <H5>Leave Credit Tracking System</H5>
             </div>
         
             <div id="loginForm">

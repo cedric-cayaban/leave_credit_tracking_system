@@ -9,7 +9,7 @@
     $designationSql = $con -> query('SELECT * FROM designation');
     $employeeSql = $con -> query('SELECT * FROM employee');
     $rankSql = $con -> query('SELECT * FROM academic_rank');
-
+    $leaveTypeSql = $con -> query("SELECT * FROM leave_type");
    
 
     //INNER JOIN SQL

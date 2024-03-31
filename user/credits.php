@@ -103,6 +103,7 @@
                         </td>
                     </tr>
                 </table>
+                <?php } ?>
             <hr class="border-dark">
             <div class="row">
                 <div class="col-md-4 col-sm-12">
@@ -117,37 +118,50 @@
                             <thead>
                                 <tr>
                                     <th class="py-1 px-2">Type</th>
-                                    <th class="py-1 px-2">Allowable</th>
+                                    <th class="py-1 px-2">Credits</th>
                                     <th class="py-1 px-2">Available</th>
                                 </tr>
                             </thead>
                             <tbody>
-                            <?php 
-                            if(isset($leave_type_ids) && !empty($leave_type_ids)):
-                            $leave_type_credits = isset($leave_type_credits) ? json_decode($leave_type_credits) : array();
-                            $ltc = array();
-                            foreach($leave_type_credits as $k=> $v){
-                                $ltc[$k] = $v;
-                            }
-                            $lt = $conn->query("SELECT * FROM `leave_types` where `id` in ({$leave_type_ids}) order by code asc ");
-                            while($row=$lt->fetch_assoc()):
-                                $used = $conn->query("SELECT SUM(`leave_days`) as total FROM `leave_applications` where user_id = '{$id}' and status = 1 and date_format(date_start,'%Y') = '".date('Y')."' and date_format(date_end,'%Y') = '".date('Y')."' and leave_type_id = '{$row['id']}' ")->fetch_array()['total'];
-                                $allowed = (isset($ltc[$row['id']])) ? $ltc[$row['id']] : 0;
-                                $available =  $allowed - $used;
-                            ?>
+                            
                             <tr>
-                                <td><?php echo $row['code'] ?></td>
-                                <td><?php echo number_format($allowed) ?></td>
-                                <td><?php echo number_format($available,1) ?></td>
+                                <td>
+                                <?php 
+                                    $firstIteration = true;
+                                    while($leaveType = $leaveTypeSql->fetch_assoc()) {
+                                        if (!$firstIteration) {
+                                            echo "<br> <br>"; 
+                                        } else {
+                                            $firstIteration = false; 
+                                        }
+                                        echo $leaveType['leave_name']; 
+                                    }
+                                ?>
+
+                                </td>
+                                <td style="text-align: center;">
+                                    <?php
+                                        if(isset($_SESSION['employee_id'])){
+                                            $employeeId = $_SESSION['employee_id'];
+                                        }
+                                        $sql = $con -> query("SELECT * FROM employee WHERE employee.employee_id = '$employeeId'");
+                                        while($credits = $sql -> fetch_assoc()){
+                                    ?>
+                                    <?php echo $credits['vacation_leave'] . "<br> <br>"?> 
+                                    <?php echo $credits['sick_leave'] ?> 
+
+                                    <?php } ?>
+                                </td>
+
+                                <td> / <br><br> /</td>
                             </tr>
-                            <?php endwhile; ?>
-                            <?php endif; ?>
+                            
                             </tbody>
                         </table>
                     </div>
                 </div>
                 
-                <div class="col-md-8 col-sm-12">
+                <div class="col-md-8 col-sm-12 py-5">
                 <div id="bottom-box" class="callout px-3 py-3 d-flex flex-column align-items-center justify-content-center ">
                     <h5>Leave History</h5>
                     <button id='view-records' class="btn btn-primary mt-3">View</button>
@@ -159,7 +173,7 @@
             </div>
         </div>
     </div>
-    <?php } ?>
+   
 </div>
 
 
