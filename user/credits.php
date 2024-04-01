@@ -119,7 +119,7 @@
                                 <tr>
                                     <th class="py-1 px-2">Type</th>
                                     <th class="py-1 px-2">Credits</th>
-                                    <th class="py-1 px-2">Available</th>
+                                    <!-- <th class="py-1 px-2">Available</th> -->
                                 </tr>
                             </thead>
                             <tbody>
@@ -153,7 +153,7 @@
                                     <?php } ?>
                                 </td>
 
-                                <td> / <br><br> /</td>
+                                <!-- <td> / <br><br> /</td> -->
                             </tr>
                             
                             </tbody>
