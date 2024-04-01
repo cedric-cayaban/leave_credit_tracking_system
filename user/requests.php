@@ -20,9 +20,9 @@
 <body>
 <div class="card card-outline card-primary">
 	<div class="card-header">
-		<h3 class="card-title">List of Applications</h3>
+		<h3 class="card-title">My Leave requests</h3>
 		<div class="card-tools">
-			<a href="?page=leave_applications/manage_application" class="btn btn-flat btn-primary"><span class="fas fa-plus"></span>  Create New</a>
+			<a href="#" onclick="loadContent('new_request.php')" class="btn btn-flat btn-primary"><span class="fas fa-plus"></span>  Create New</a>
 		</div>
 	</div>
 	<div class="card-body">
@@ -31,19 +31,19 @@
 			<table class="table table-hover table-stripped">
 				
 				<colgroup>
-					<col width="10%">
-					<col width="15%">
 					<col width="15%">
 					<col width="10%">
+					<col width="10%">
+					<col width="15%">
 					<col width="10%">
 					<col width="10%">
 				</colgroup>
 				<thead>
 					<tr>
-						<th>ID</th>
-						<th>Employee</th>
 						<th>Leave Type</th>
 						<th>Days</th>
+						<th>Credit Cost</th>
+						<th>Date</th>
 						<th>Status</th>
 						<th>Action</th>
 					</tr>
@@ -64,15 +64,15 @@
 						<tr>
 							
 							<td>
-                            <small><?=$employee['employee_id']?></small><br>
+                            <?=$employee['leave_name']?>
                             </td>
 							<td>
 								
-								<small><?=$employee['fname']?> </small>
+								<?=$employee['days']?> 
                             </td>
 							
-							<td><?=$employee['leave_name']?></td>
-							<td><?=$employee['days']?></td>
+							<td><?=$employee['credit_cost']?></td>
+							<td><?= date('F j, Y', strtotime($employee['date'])) ?></td>
 							<td>
                             <?php if($employee['status'] == 'Approved'): ?>
 									<b class="text-success">Approved</b>
@@ -83,16 +83,13 @@
 								<?php endif; ?>
 							</td>
 							<td>
-                                <div class="dropdown">
-                                    <button class="btn btn-flat btn-default btn-sm dropdown-toggle view_application" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Action
-                                    </button>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <li><a class="dropdown-item" href="#" ><span class="fa fa-eye"></span> View</a></li>
-                                        <li><a class="dropdown-item update_status" href="#"><span class="fa fa-check-square"></span> Update Status</a></li>
-                                    
-                                    </ul>
-                                </div>
+								<div class="dropdown">
+									<button class="btn btn-flat btn-default btn-sm dropdown-toggle" onclick="toggleDropdown()" aria-expanded="false">Action</button>
+									<div class="dropdown-content" id="dropdownMenu">
+										<a href="#" onclick="reqAction('<?=($employee['leave_id'])?>', 'view')"><i class="fa fa-eye text-primary text-dark"></i> View</a>
+										<a href="#" onclick="reqAction('<?=($employee['leave_id'])?>', 'cancel')"><i class="fa-solid fa-circle-xmark text-danger"></i> Cancel</a>
+									</div>
+								</div>
 							</td>
 						</tr>
 
@@ -107,27 +104,60 @@
 	</div>
 </div>
 
-<div class="modal fade" id="applicationDetailsModal" tabindex="-1" aria-labelledby="applicationDetailsModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="applicationDetailsModalLabel">Application Details</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-            <a href="">asasa</a>
-      </div>
-    </div>
-  </div>
-</div>
+
 
 <script>
+	function toggleDropdown() {
+        var dropdownContent = document.getElementById("dropdownMenu");
+        if (dropdownContent.style.display === "block") {
+            dropdownContent.style.display = "none";
+        } else {
+            dropdownContent.style.display = "block";
+        }
+    }
 
+
+
+    function reqAction(leaveId, action){ 
+
+        $.post('../ajax/user_request_action.php', 
+        {
+            leaveId: leaveId,
+            action: action
+        }, 
+        function(data, status){
+            if(data === 'cancelled'){ 
+                $('#contents').load('requests.php');
+            }
+			else if(data === 'error'){
+				$('#employeeInfo').html('No data');
+                $('#employeeModal').modal('show');
+			}
+            else{
+                $('#employeeInfo').html(data);
+                $('#employeeModal').modal('show');
+            }
+        });
+    }
+ 
 							
     
     
 </script>
 
+	<div class="modal fade" id="employeeModal" tabindex="-1" aria-labelledby="employeeModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="employeeModalLabel">Leave Information</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body" id="employeeInfo">
+				
+				</div>
+			</div>
+		</div>
+	</div>
 
 </body>
 </html>

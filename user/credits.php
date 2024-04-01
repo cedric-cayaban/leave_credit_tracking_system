@@ -43,7 +43,7 @@
         ?>
         <div class="w-100 d-flex justify-content-between mb-3 my-3">
             <h2>My Information</h2>
-            <a href="" class="btn btn-flat btn-primary me-3"><span class="fas fa-edit"></span>Edit Information</a>   
+            <a href="#" class="btn btn-flat btn-primary me-3" onclick="loadContent('edit_info.php')"><span class="fas fa-edit"></span>Edit Information</a>   
         </div>
 
 
@@ -81,7 +81,7 @@
                                         </div>
                                     </div>
                                     <div class="d-flex w-max-100">
-                                        <label class="float-left w-auto whitespace-nowrap">Address:</label>
+                                        <label class="float-left w-auto whitespace-nowrap">Address: &nbsp </label>
                                         <p class="col-md border-bottom border-dark w-100"><b><?= $employee['address'] ?></b></p>
                                     </div>
                                     <div class="row justify-content-between w-max-100 mr-0">
@@ -164,7 +164,7 @@
                 <div class="col-md-8 col-sm-12 py-5">
                 <div id="bottom-box" class="callout px-3 py-3 d-flex flex-column align-items-center justify-content-center ">
                     <h5>Leave History</h5>
-                    <button id='view-records' class="btn btn-primary mt-3">View</button>
+                    <button id='view-records' onclick="loadContent('history.php')" class="btn btn-primary mt-3">View</button>
                 </div>
 
                 </div>

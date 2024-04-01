@@ -9,7 +9,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="../css/register.css?ver=0008">
+    <link rel="stylesheet" href="../css/register.css?ver=0009">
 
         <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -32,40 +32,40 @@
                         <div class="col-6">
                         <div class="form-group">
                                 <label for="firstname">Employee ID</label>
-                                <input type="text" name="firstname" id="empId" class="form-control rounded-0" value="<?php echo isset($meta['firstname']) ? $meta['firstname']: '' ?>" >
+                                <input type="text" name="firstname" id="empId" class="form-control rounded-0" value="" >
                             </div>
                             <div class="form-group">
                                 <label for="firstname">First Name</label>
-                                <input type="text" name="firstname" id="firstname" class="form-control rounded-0" value="<?php echo isset($meta['firstname']) ? $meta['firstname']: '' ?>" >
+                                <input type="text" name="firstname" id="firstname" class="form-control rounded-0" value="" >
                             </div>
                             <div class="form-group">
                                 <label for="middlename">Middle Name</label>
-                                <input type="text" name="middlename" id="middlename" class="form-control rounded-0" value="<?php echo isset($meta['middlename']) ? $meta['middlename']: '' ?>" >
+                                <input type="text" name="middlename" id="middlename" class="form-control rounded-0" value="" >
                             </div>
                             <div class="form-group">
                                 <label for="lastname">Last Name</label>
-                                <input type="text" name="lastname" id="lastname" class="form-control rounded-0" value="<?php echo isset($meta['lastname']) ? $meta['lastname']: '' ?>" >
+                                <input type="text" name="lastname" id="lastname" class="form-control rounded-0" value="" >
                             </div>
                             <div class="form-group">
                                 <label for="birthdate">Birthdate</label>
-                                <input type="date" name="birthdate" id="birthdate" class="form-control rounded-0" value="<?php echo isset($meta['dob']) ? date("Y-m-d",strtotime($meta['dob'])): '' ?>" >
+                                <input type="date" name="birthdate" id="birthdate" class="form-control rounded-0" value="" >
                             </div>
                             
                             <div class="form-group">
                                 <label for="address">Address</label>
-                                <textarea rows="5" name="address" id="address" class="form-control rounded-0" style="resize:none !important" ><?php echo isset($meta['address']) ? $meta['address']: '' ?></textarea>
+                                <textarea rows="5" name="address" id="address" class="form-control rounded-0" style="resize:none !important" ></textarea>
                             </div>
                            
                         </div>
                         <div class="col-6">
                             <div class="form-group">
                                 <label for="contact">Contact #</label>
-                                <input type="number" name="contact" id="contact" class="form-control rounded-0" value="<?php echo isset($meta['contact']) ? $meta['contact']: '' ?>" >
+                                <input type="number" name="contact" id="contact" class="form-control rounded-0" value="" >
                             </div>
                             <div class="form-group">
                                 <label for="department">Department</label>
                                 <select name="department" id="department" class="form-control select2bs4 select2 rounded-0" data-placeholder="Please Select Department here" reqiured>
-                                    <option value="" disabled <?php echo !isset($meta['department_id']) ? 'selected' : '' ?>></option>
+                                    <option value="" disabled></option>
                                     <?php while($department = $departmentSql -> fetch_assoc()){ ?>
                                         <option value="<?=$department['dept_id'] ?>"><?=$department['dept_name']?></option>
                                     <?php } ?>
@@ -74,7 +74,7 @@
                             <div class="form-group">
                                 <label for="employee_type">Employee type</label>
                                 <select name="employee_type" id="employee_type" class="form-control select2bs4 select2 rounded-0" data-placeholder="Please Select Department here" reqiured>
-                                    <option value="" disabled <?php echo !isset($meta['employee_id']) ? 'selected' : '' ?>></option>
+                                    <option value="" disabled></option>
                                     <?php while($employeeType = $empTypeSql -> fetch_assoc()){ ?>
                                         <option value="<?=$employeeType['type_id'] ?>"><?=$employeeType['type_name']?></option>
                                     <?php } ?>
@@ -83,7 +83,7 @@
                             <div class="form-group">
                                 <label for="rank">Academic rank (Optional)</label>
                                 <select name="rank" id="rank" class="form-control select2bs4 select2 rounded-0" data-placeholder="Please Select Department here" reqiured>
-                                    <option value="" disabled <?php echo !isset($meta['employee_id']) ? 'selected' : '' ?>></option>
+                                    <option value="" disabled></option>
                                     <?php while($rank = $rankSql -> fetch_assoc()){ ?>
                                         <option value="<?=$rank['rank_id']?>"><?=$rank['rank_name']?></option>
                                     <?php } ?>
@@ -92,7 +92,7 @@
                             <div class="form-group">
                                 <label for="designation">Designation (Optional)</label>
                                 <select name="designation" id="designation" class="form-control select2bs4 select2 rounded-0" data-placeholder="Please Select Designation here" reqiured>
-                                    <option value="" <?php echo !isset($meta['designation_id']) ? 'selected' : '' ?>></option>
+                                    <option value="" ></option>
                                     <?php while($designation = $designationSql -> fetch_assoc()){ ?>
                                         <option value="<?=$designation['designation_id']?>"><?=$designation['designation_name']?></option>
                                     <?php } ?>

@@ -70,8 +70,8 @@
                             </td>
 							
 							<td><?=$employee['type_name']?></td>
-							<td><?=$employee['rank_name']?></td>
-							<td><?=$employee['designation_name']?></td>
+							<td><?=$employee['rank_name'] ?? 'N/A' ?></td>
+							<td><?=$employee['designation_name'] ?? 'N/A' ?></td>
 							<td>
                             <div class="dropdown">
                                 <button class="btn btn-flat btn-default btn-sm dropdown-toggle" onclick="toggleDropdown()" aria-expanded="false">Action</button>

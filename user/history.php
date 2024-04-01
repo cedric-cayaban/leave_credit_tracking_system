@@ -42,20 +42,20 @@
 			<table class="table table-hover table-stripped">
 				
 				<colgroup>
-                    <col width="10%">
-					<col width="15%">
-					<col width="15%">
+                    <col width="15%">
+					<col width="10%">
+					<col width="10%">
 					<col width="15%">
 					<col width="10%">
 					<col width="10%">
 				</colgroup>
 				<thead>
 					<tr>
-						<th>ID</th>
-						<th>Employee</th>
-						<th>Leave Type</th>
-						<th>Date</th>
+                        <th>Leave Type</th>
 						<th>Days</th>
+						<th>Credit Cost</th>
+						<th>Date</th>
+						<th>Reason</th>
 						<th>Status</th>
 					</tr>
 				</thead>
@@ -68,30 +68,28 @@
                                 employee_leave 
                                 INNER JOIN employee ON employee_leave.employee_id=employee.employee_id 
                                 INNER JOIN leave_type ON employee_leave.leave_type = leave_type.type_id 
-                                WHERE employee.employee_id = '$employeeId' AND  employee_leave.status = 'Accepted' OR employee_leave.status = 'Rejected'" 
+                                WHERE employee.employee_id = '$employeeId' AND  employee_leave.status = 'Accepted' OR employee_leave.status = 'Rejected' OR employee_leave.status = 'Canceled'" 
                             );
                             while($employee = $reportSql -> fetch_assoc()){
                         ?>
 						<tr>
 							
-							<td>
-                            <small><?=$employee['employee_id']?></small><br>
-                            </td>
-							<td>
-								
-								<small><?=$employee['fname'] . ' ' . $employee['lname']?> </small>
-                            </td>
-							
 							<td><?=$employee['leave_name']?></td>
+							<td><?=$employee['days']?></td>
+							<td><?=$employee['credit_cost']?></td>
 							<td><?= date('F j, Y', strtotime($employee['date'])) ?></td>
 							<td>
-                                <?=$employee['days']?>
+                                <button class="btn btn-flat btn-default btn-sm view_application" type="button" data-reason="<?=$employee['reason']?>">
+                                    <i class="fa fa-eye text-primary"></i> View
+                                </button>
 							</td>
 							<td>
                             <?php if($employee['status'] == 'Accepted'): ?>
 									<b class="text-success">Approved</b>
 								<?php elseif($employee['status'] == 'Rejected'): ?>
 									<b class="text-danger">Denied</b>
+                                    <?php elseif($employee['status'] == 'Canceled'): ?>
+									<b class="text-muted">Canceled</b>
 								<?php else: ?>
 									<b class="text-primary">Pending</b>
 								<?php endif; ?>
@@ -139,6 +137,7 @@
         </div>
     </div>
 </div>
+
 
 
 

@@ -21,6 +21,10 @@
     box-shadow: 0px 0px 2px rgb(34, 32, 161);
 }
 
+.card label{
+    font-weight: bold;
+}
+
 .card hr {
     margin-right: 0;
     margin-left: 0;
@@ -166,7 +170,13 @@
 .header{
     display: flex;
     justify-content: center;
-    margin-bottom: 2%;
+    margin-bottom: 1%;
+}
+
+.card-container {
+    max-width: 600px; 
+    margin: 0 auto; 
+    padding: 20px; 
 }
 
 input[type="number"]::-webkit-inner-spin-button,
