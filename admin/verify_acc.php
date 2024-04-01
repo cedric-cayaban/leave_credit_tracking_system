@@ -1,5 +1,6 @@
 <?php
     require('../config.php');
+    session_start();
 ?>
 
 <!DOCTYPE html>
@@ -57,6 +58,18 @@
 				</thead>
 				<tbody>
                         <?php
+                            if(isset($_SESSION['department'])){
+                                $adminDept = $_SESSION['department'];
+                            }
+                            $empVerifySql = $con -> query("SELECT employee.employee_id, employee.fname, employee.lname, employee_type.type_name, academic_rank.rank_name, designation.designation_name 
+                            FROM employee 
+                            LEFT JOIN employee_leave ON employee.employee_id = employee_leave.employee_id 
+                            LEFT JOIN leave_type ON employee_leave.leave_type = leave_type.type_id 
+                            LEFT JOIN employee_type ON employee.employee_type = employee_type.type_id 
+                            LEFT JOIN academic_rank ON employee.academic_rank = academic_rank.rank_id
+                            LEFT JOIN designation ON employee.designation = designation.designation_id
+                            WHERE employee.acc_status = 'Pending' AND employee.department = '$adminDept'
+                            ");
                             while($employee = $empVerifySql -> fetch_assoc()){
                         ?>
 						<tr>

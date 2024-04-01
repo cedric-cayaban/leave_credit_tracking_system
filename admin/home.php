@@ -8,7 +8,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/adminhome.css?ver=0002">
+    <link rel="stylesheet" href="../css/home.css?ver=0002">
    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/9c6f27a8d7.js" crossorigin="anonymous"></script>
@@ -23,7 +23,7 @@
 <div class="container-fluid">
     <div class="row flex-nowrap">
         
-        <div class="bg-primary-custom col-auto col-md-4 col-lg-2 min-vh-100 d-flex flex-column justify-content-between">
+        <div class="bg-primary-custom col-auto col-md-4 col-lg-2 min-vh-100 d-flex flex-column justify-content-between position-sticky" >
             
             <div class="bg-primary-custom p-2">
                 <a class="d-flex justify-content-center text-decoration-none mt-1 align-items-center text-white">

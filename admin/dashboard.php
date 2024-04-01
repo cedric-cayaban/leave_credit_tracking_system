@@ -1,6 +1,7 @@
 
  <?php
     require('../config.php');
+    session_start();
  ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -37,7 +38,15 @@
                 <span class="info-box-text">Pending Requests: </span>
                 <span class="info-box-number text-right">
                     <?php 
-                        $pendingLeave = $con->query("SELECT COUNT(*) AS pending_count FROM employee_leave WHERE status = 'Pending'")->fetch_assoc()['pending_count'];
+                        if(isset($_SESSION['department'])){
+                          $adminDept = $_SESSION['department'];
+                        }
+                        $pendingLeave = $con->query("SELECT COUNT(*) AS pending_count
+                        FROM employee_leave
+                        INNER JOIN employee ON employee_leave.employee_id = employee.employee_id
+                        WHERE employee_leave.status = 'Pending' AND employee.department = '$adminDept'
+                        ")->fetch_assoc()['pending_count'];
+
                         echo number_format($pendingLeave);
                     ?>
                   <?php ?>
@@ -56,7 +65,10 @@
                 <span class="info-box-text">Pending Accounts: </span>
                 <span class="info-box-number text-right">
                   <?php 
-                    $pendingAccount = $con->query("SELECT COUNT(*) AS pending_count FROM employee WHERE acc_status = 'Pending'")->fetch_assoc()['pending_count'];
+                   if(isset($_SESSION['department'])){
+                      $adminDept = $_SESSION['department'];
+                    }
+                    $pendingAccount = $con->query("SELECT COUNT(*) AS pending_count FROM employee WHERE acc_status = 'Pending' and department = '$adminDept'")->fetch_assoc()['pending_count'];
                     echo number_format($pendingAccount);
                   ?>
                 </span>
@@ -74,8 +86,16 @@
                 <span class="info-box-text">Leave Reports: </span>
                 <span class="info-box-number text-right">
                   <?php 
-                     $totalReports = $con->query("SELECT COUNT(*) AS pending_count FROM employee_leave WHERE status = 'Accepted' OR status = 'Rejected'")->fetch_assoc()['pending_count'];
-                     echo number_format($totalReports);
+                    if(isset($_SESSION['department'])){
+                      $adminDept = $_SESSION['department'];
+                    }
+                    $totalReports = $con->query("SELECT COUNT(*) AS pending_count
+                    FROM employee_leave
+                    INNER JOIN employee ON employee_leave.employee_id = employee.employee_id
+                    WHERE employee.department = '$adminDept' AND
+                    status = 'Accepted' OR status = 'Rejected'"
+                    )->fetch_assoc()['pending_count'];
+                    echo number_format($totalReports);
                   ?>
                 </span>
               </div>

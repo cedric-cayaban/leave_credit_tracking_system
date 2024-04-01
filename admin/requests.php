@@ -1,5 +1,7 @@
 <?php
     require('../config.php');
+    session_start();
+   
 ?>
 
 <!DOCTYPE html>
@@ -25,15 +27,9 @@
 <div class="card card-outline card-primary mt-4" id="load-content">
 	<div class="card-header d-flex justify-content-between">
 		<h3 class="card-title">List of Leave Requests</h3>
-
-    <!-- NUMBER 2 -->
-    <!-- ANDITO BUTTON PARA SA CREATE NEW NAKA COMMENT OUT LANG, MERON YAN SA LAHAT NG PHP FILE SA ADMIN -->  
-
 		<!-- <div class="card-tools">
 			<a href="" class="btn btn-flat btn-primary"><span class="fas fa-plus"></span>Create New</a>
 		</div> -->
-
-    <!-- ANDITO BUTTON PARA SA CREATE NEW NAKA COMMENT OUT LANG, MERON YAN SA LAHAT NG PHP FILE SA ADMIN -->
 	</div>
 	<div class="card-body">
 		
@@ -60,12 +56,24 @@
 				</thead>
 				<tbody>
                         <?php
+                            if(isset($_SESSION['department'])){
+                                $adminDept = $_SESSION['department'];
+                            }
+                            $requestSql = $con -> query("SELECT * FROM 
+                            employee_leave 
+                            INNER JOIN employee ON employee_leave.employee_id=employee.employee_id 
+                            INNER JOIN leave_type ON employee_leave.leave_type = leave_type.type_id 
+                            WHERE employee_leave.status = 'Pending' AND employee.department = '$adminDept' ORDER BY leave_id DESC"
+                            );
                             while($employee = $requestSql -> fetch_assoc()){
                         ?>
-						<tr>
-							
-                           
+						<tr>  
 							<td>
+                                <input type="hidden" id="empId" value="<?=$employee['employee_id']?>">
+                                <input type="hidden" id="cost" value="<?=$employee['credit_cost']?>">
+                                <input type="hidden" id="sickCredits" value="<?=$employee['sick_credits']?>">
+                                <input type="hidden" id="vacationCredits" value="<?=$employee['vacation_credits']?>">
+                                <input type="hidden" id="leaveType" value="<?=$employee['leave_name']?>">
                                 <small><?=$employee['employee_id']?></small><br>
                             </td>
 							<td>
@@ -116,24 +124,26 @@
         }
     }
 
-    $(".view_application").click(function() {
-        var reason = $(this).data('reason');
-        $('#reason').text(reason);
-        $('#applicationDetailsModal').modal('show');
-    });
 
-//ETO PROCESS PARA SA PAG ACCEPT OR REJECT NG LEAVE
     function reqAction(leaveId, action){
-        
+        var empId = $('#empId').val();
+        var cost = $('#cost').val();
+        var sickCredits = $('#sickCredits').val();
+        var vacationCredits = $('#vacationCredits').val();
+        var leaveType = $('#leaveType').val();
 
-    //TINATAWAG NYA YUNG AJAX PHP FILE
         $.post('../ajax/request_action.php', 
         {
+            empId: empId,
             leaveId: leaveId,
-            action: action
+            cost: cost,
+            action: action,
+            leaveType: leaveType,
+            sickCredits: sickCredits,
+            vacationCredits: vacationCredits
         }, 
         function(data, status){
-            if(data === 'success'){ //PAG SUCCESS NILOLOAD NYA ULIT YUNG CONTENTS PARA MAGREFRESH
+            if(data === 'success'){ 
                 $('#contents').load('requests.php');
             }
             else{
@@ -141,8 +151,15 @@
             }
         });
     }
- //ETO PROCESS PARA SA PAG ACCEPT OR REJECT NG LEAVE    
     
+
+
+    $(".view_application").click(function() {
+        var reason = $(this).data('reason');
+        $('#reason').text(reason);
+        $('#applicationDetailsModal').modal('show');
+    });
+ 
 </script>
 
 <div class="modal fade" id="applicationDetailsModal" tabindex="-1" aria-labelledby="applicationDetailsModalLabel" aria-hidden="true">

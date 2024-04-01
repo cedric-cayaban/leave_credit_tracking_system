@@ -147,8 +147,8 @@
                                         $sql = $con -> query("SELECT * FROM employee WHERE employee.employee_id = '$employeeId'");
                                         while($credits = $sql -> fetch_assoc()){
                                     ?>
-                                    <?php echo $credits['vacation_leave'] . "<br> <br>"?> 
-                                    <?php echo $credits['sick_leave'] ?> 
+                                    <?php echo $credits['vacation_credits'] . "<br> <br>"?> 
+                                    <?php echo $credits['sick_credits'] ?> 
 
                                     <?php } ?>
                                 </td>

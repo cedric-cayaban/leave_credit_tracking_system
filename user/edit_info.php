@@ -117,12 +117,12 @@
         
         <?php } ?>
         <div class="registerBtn">
-            <button id='register'>Save</button>
+            <button id='save'>Save</button>
             
         </div>
         
     <script>
-        $('#register').click(function(){
+        $('#save').click(function(){
             var empId = $('#empId').val();
             var fname = $('#firstname').val();
             var mname = $('#middlename').val();

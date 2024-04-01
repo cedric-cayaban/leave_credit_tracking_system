@@ -57,7 +57,7 @@
 								employee_leave 
 								INNER JOIN employee ON employee_leave.employee_id=employee.employee_id 
 								INNER JOIN leave_type ON employee_leave.leave_type = leave_type.type_id 
-								WHERE employee_leave.status = 'Pending' AND employee.employee_id = '$employeeId'"
+								WHERE employee_leave.status = 'Pending' AND employee.employee_id = '$employeeId' ORDER BY leave_id DESC"
 							);
                             while($employee = $requestSql -> fetch_assoc()){
                         ?>

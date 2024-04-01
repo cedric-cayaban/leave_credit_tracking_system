@@ -44,29 +44,29 @@
                         <div class="row">
                             <div class="col m-auto">
                                 <div class="form-group">
-                                    <label for="department">Leave Type</label>
-                                    <select name="department" id="department" class="form-control select2bs4 select2 rounded-0" data-placeholder="Please Select Department here" reqiured>
-                                        
+                                    <input type="hidden" id="empId" value="<?=$employee['employee_id']?>">
+                                    <label for="leave_type">Leave Type</label>
+                                    <select name="leave_type" id="leave_type" class="form-control select2bs4 select2 rounded-0" onchange="computeCredit()">
                                         <?php while($leaveType = $leaveTypeSql -> fetch_assoc()){ ?>
                                             <option value="<?=$leaveType['type_id'] ?>"><?=$leaveType['leave_name']?></option>
                                         <?php } ?>
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="employee_type">Date</label>
+                                    <label for="date">Date</label>
                                     <input type="date" name="date" id="date" class="form-control rounded-0" value="">
                                 </div>
                                 <div class="form-group">
                                     <label for="rank">Days</label>
-                                    <input type="number" name="days" id="days" class="form-control rounded-0" value="" >
+                                    <input type="number" name="days" id="days" onkeyup="computeCredit()" class="form-control rounded-0" value="" >
                                 </div>
                                 <div class="form-group">
-                                    <label for="designation">Credits cost</label>
-                                    <input type="number" disabled name="days" id="days" class="form-control rounded-0" value="0" >
+                                    <label for="cost">Credits cost</label>
+                                    <input type="number" disabled name="cost" id="cost" class="form-control rounded-0" value="" >
                                 </div>
                                 <div class="form-group">
-                                    <label for="designation">Reason</label>
-                                    <textarea rows="5" name="address" id="address" class="form-control rounded-0" style="resize:none !important" ></textarea>
+                                    <label for="reason">Reason</label>
+                                    <textarea rows="5" name="reason" id="reason" class="form-control rounded-0" style="resize:none !important" ></textarea>
                                 </div>
                                 
                             </div>
@@ -81,62 +81,68 @@
         
         <?php } ?>
         <div class="registerBtn">
-            <button id='register'>Apply</button>
+            <button id='submit'>Submit</button>
             
         </div>
         
     <script>
-        $('#register').click(function(){
-            var empId = $('#empId').val();
-            var fname = $('#firstname').val();
-            var mname = $('#middlename').val();
-            var lname = $('#lastname').val();
-            var birthdate = $('#birthdate').val();
-            var address = $('#address').val();
-            var contact = $('#contact').val();
-            var employee_type = $('#employee_type').val();
-            var rank = $('#rank').val();
-            var department = $('#department').val();
-            var designation = $('#designation').val();
-            
-            
-            $.post('../ajax/save_info.php',
-            {
-                empId: empId,
-                fname: fname, 
-                contact: contact,
-                mname: mname, 
-                employee_type: employee_type,
-                lname: lname, 
-                rank: rank,
-                department: department,
-                birthdate: birthdate, 
-                designation: designation,
-                address: address, 
-                
-            }, 
-            function(data, status){
-                data = data.trim();
-                if(data === 'success'){
 
-                    Swal.fire({
-                            icon: 'success',
-                            title: 'Success',
-                            text: 'Registration successful'
-                        }).then((result) =>{
-                            loadContent('edit_info.php');
-                            if(result.isConfirmed){
-                                window.location.href = '../index.php';
-                            }
+        function computeCredit(){
+            var leaveType =  $('#leave_type').val();
+            var days = $('#days').val();
+            var cost = $('#cost').val();
+            var vacLeavetotal;
+            var sickLeaveTotal;
+
+            if(leaveType == 1){
+                vacLeaveTotal = days * 0.50;
+                $("#cost").val(vacLeaveTotal);
+            }
+            
+            else if(leaveType == 2){
+                sickLeaveTotal = days * 0.042;
+                $("#cost").val(sickLeaveTotal);
+            }
+           
+        }
+
+        $('#submit').click(function(){
+            var empId = $('#empId').val();
+            var type =  $('#leave_type').val();
+            var date = $('#date').val();
+            var days = $('#days').val();
+            var cost = $('#cost').val();
+            var reason = $('#reason').val();
+            // alert(empId);
+            
+            
+            $.post('../ajax/new_request_ajax.php',
+                {
+                    empId: empId,
+                    type: type,
+                    date: date,
+                    days: days,
+                    cost: cost,
+                    reason: reason
+                    
+                }, 
+                function(data, status){
+                    data = data.trim();
+                    if(data === 'success'){
+                        Swal.fire({
+                                icon: 'success',
+                                title: 'Success',
+                                text: 'Registration successful'
+                            });
+                        loadContent('requests.php');
+                    }
+                    else{
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: data,
                         });
-                }
-                else{
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
-                        text: data,
-                    });
-                }
+                    }
             });
         });
     </script>
