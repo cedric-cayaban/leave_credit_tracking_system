@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 31, 2024 at 01:46 PM
+-- Generation Time: Apr 02, 2024 at 08:13 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -67,7 +67,7 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`admin_id`, `username`, `password`, `fname`, `mname`, `lname`, `birthdate`, `address`, `contact`, `department`) VALUES
-(1, 'admin', 'admin123', 'test fname', 'test mname', 'test lname', NULL, 'test address', 918273656, 3),
+(1, 'admin', 'admin123', 'test fname', 'test mname', 'test lname', NULL, 'test address', 918273656, 6),
 (10, 'test', 'test', 'test', 'test', 'test', '2024-03-12', 'test', 1, 2),
 (11, 'a', 'a', 'a', 'a', 'a', '2024-03-19', 'a', 1, 2);
 
@@ -131,7 +131,8 @@ CREATE TABLE `employee` (
   `fname` varchar(25) NOT NULL,
   `mname` varchar(255) NOT NULL,
   `lname` varchar(20) NOT NULL,
-  `credits` int(11) DEFAULT NULL,
+  `sick_credits` float DEFAULT NULL,
+  `vacation_credits` float DEFAULT NULL,
   `birthdate` date NOT NULL,
   `contact` int(11) NOT NULL,
   `address` varchar(100) NOT NULL,
@@ -145,10 +146,12 @@ CREATE TABLE `employee` (
 -- Dumping data for table `employee`
 --
 
-INSERT INTO `employee` (`employee_id`, `username`, `password`, `acc_status`, `fname`, `mname`, `lname`, `credits`, `birthdate`, `contact`, `address`, `department`, `employee_type`, `academic_rank`, `designation`) VALUES
-('21-UR-0183', 'ced', 'ced123', 'Accepted', 'Cedric Joel', 'Fernandez', 'Cayaban', NULL, '2024-03-11', 2147483647, 'Macarang', 5, 2, 3, NULL),
-('21-UR-0186', 'a', 'a', 'Accepted', 'Christopherson', 'Callo', 'Carpio', NULL, '2024-03-10', 2147483647, 'Mangats', 3, 1, 1, 2),
-('test ID', 'test', 'test123', 'Pending', 'test name', 'test name', 'test lname', NULL, '2024-01-16', 918273656, 'a', 4, 1, 1, 2);
+INSERT INTO `employee` (`employee_id`, `username`, `password`, `acc_status`, `fname`, `mname`, `lname`, `sick_credits`, `vacation_credits`, `birthdate`, `contact`, `address`, `department`, `employee_type`, `academic_rank`, `designation`) VALUES
+('21-UR-0111', 'leng', 'leng123', 'Pending', 'Justin Gerald', 'G', 'Loleng', 0, 10, '2024-04-14', 2147483647, 'urda', 6, 2, NULL, NULL),
+('21-UR-0183', 'ced', 'ced123', 'Accepted', 'Cedric Joel', 'Fernandez', 'Cayaban', 2, 5, '2024-03-11', 2147483647, 'Macarang', 6, 2, 3, NULL),
+('21-UR-0186', 'a', 'a', 'Accepted', 'Christopherson', 'Callo', 'Carpio', 0, 10, '2024-03-10', 2147483647, 'Mangats', 3, 1, 1, 2),
+('22-UR-0001', 'mak', 'mak123', 'Accepted', 'mak', 'Banga', 'biag', 0, 0, '2024-04-02', 2147483647, 'aguilar', 6, 1, 1, NULL),
+('test ID', 'test', 'test123', 'Pending', 'test name', 'test name', 'test lname', 0, 10, '2024-01-16', 918273656, 'a', 4, 1, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -163,7 +166,7 @@ CREATE TABLE `employee_leave` (
   `date` date NOT NULL,
   `status` varchar(50) NOT NULL,
   `reason` varchar(150) NOT NULL,
-  `days` decimal(10,1) NOT NULL,
+  `days` float NOT NULL,
   `credit_cost` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
@@ -172,11 +175,15 @@ CREATE TABLE `employee_leave` (
 --
 
 INSERT INTO `employee_leave` (`leave_id`, `employee_id`, `leave_type`, `date`, `status`, `reason`, `days`, `credit_cost`) VALUES
-(5, '21-UR-0183', 1, '2024-03-17', 'Accepted', 'sick', 0.5, 1),
-(6, '21-UR-0186', 2, '2024-03-19', 'Accepted', 'sick na', 1.0, 1),
-(7, '21-UR-0183', 1, '2024-03-12', 'Rejected', 'pagod na', 1.0, 1),
-(8, '21-UR-0186', 1, '2024-03-05', 'Pending', 'im sick as heck', 1.0, 1),
-(9, '21-UR-0183', 1, '2024-02-06', 'Pending', 'dunno', 1.0, 1);
+(5, '21-UR-0183', 1, '2024-03-17', 'Accepted', 'sick', 0.5, 0.5),
+(6, '21-UR-0186', 2, '2024-03-19', 'Accepted', 'sick na', 1, 1),
+(7, '21-UR-0183', 1, '2024-03-12', 'Accepted', 'pagod na', 1, 1),
+(8, '21-UR-0186', 1, '2024-03-05', 'Pending', 'im sick as heck', 1, 1),
+(9, '21-UR-0183', 1, '2024-02-06', 'Accepted', 'dunno', 1, 1),
+(10, '21-UR-0183', 1, '2024-04-01', 'Accepted', 'need some rest', 1, 0.5),
+(11, '21-UR-0183', 2, '2024-04-02', 'Pending', 'im sick', 2, 2),
+(12, '21-UR-0183', 1, '2024-04-03', 'Canceled', 'sick', 0.5, 0.5),
+(13, '21-UR-0183', 1, '2024-04-03', 'Canceled', 'im sick', 0.5, 0);
 
 -- --------------------------------------------------------
 
@@ -307,7 +314,7 @@ ALTER TABLE `designation`
 -- AUTO_INCREMENT for table `employee_leave`
 --
 ALTER TABLE `employee_leave`
-  MODIFY `leave_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `leave_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `employee_type`

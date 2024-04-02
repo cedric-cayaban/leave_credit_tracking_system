@@ -115,7 +115,6 @@
     </div>
     <div class="registerBtn">
         <button id='register'>Register</button>
-        
     </div>
 </div>
 

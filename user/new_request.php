@@ -46,19 +46,28 @@
                                 <div class="form-group">
                                     <input type="hidden" id="empId" value="<?=$employee['employee_id']?>">
                                     <label for="leave_type">Leave Type</label>
-                                    <select name="leave_type" id="leave_type" class="form-control select2bs4 select2 rounded-0" onchange="computeCredit()">
+                                    <select name="leave_type" id="leave_type" class="form-control select2bs4 select2 rounded-0">
                                         <?php while($leaveType = $leaveTypeSql -> fetch_assoc()){ ?>
                                             <option value="<?=$leaveType['type_id'] ?>"><?=$leaveType['leave_name']?></option>
                                         <?php } ?>
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="date">Date</label>
-                                    <input type="date" name="date" id="date" class="form-control rounded-0" value="">
+                                    <label for="date">Start Date</label>
+                                    <input type="date" name="endDate" id="start_Date" class="form-control rounded-0">
                                 </div>
                                 <div class="form-group">
-                                    <label for="rank">Days</label>
-                                    <input type="number" name="days" id="days" onkeyup="computeCredit()" class="form-control rounded-0" value="" >
+                                    <label for="date">End Date</label>
+                                    <input type="date" name="endDate" id="end_Date" class="form-control rounded-0" onchange="computeCredit()">
+                                </div>
+                                <input type="hidden" id="days">
+                                <div class="form-group">
+                                    
+                                    <label for="rank">Leave length</label>
+                                    <select name="leave_length" id="leave_length" class="form-control select2bs4 select2 rounded-0" onchange="computeCredit()">
+                                            <option value="whole">Whole day</option>
+                                            <option value="half">Half day</option>
+                                    </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="cost">Credits cost</label>
@@ -89,32 +98,37 @@
 
         function computeCredit(){
             var leaveType =  $('#leave_type').val();
-            var days = $('#days').val();
-            var cost = $('#cost').val();
-            var vacLeavetotal;
-            var sickLeaveTotal;
-
-            if(leaveType == 1){
-                vacLeaveTotal = days * 0.50;
-                $("#cost").val(vacLeaveTotal);
+            var startDate = new Date($('#start_Date').val());
+            var endDate = new Date($('#end_Date').val());
+            var leaveLength = $('#leave_length').val();
+            var days;
+            var creditCost;
+            
+            days = (endDate - startDate) / (1000 * 3600 * 24);
+           
+            
+            if(leaveLength == 'whole'){
+                creditCost = days * 1;
+                $("#cost").val(creditCost);
+                $("#days").val(creditCost);
             }
             
-            else if(leaveType == 2){
-                sickLeaveTotal = days * 0.042;
-                $("#cost").val(sickLeaveTotal);
+            else if(leaveLength == 'half'){
+                creditCost = days * 0.5;
+                $("#cost").val(creditCost);
+                $("#days").val(creditCost);
             }
+            
            
         }
 
         $('#submit').click(function(){
             var empId = $('#empId').val();
             var type =  $('#leave_type').val();
-            var date = $('#date').val();
+            var date = $('#start_Date').val();
             var days = $('#days').val();
             var cost = $('#cost').val();
             var reason = $('#reason').val();
-            // alert(empId);
-            
             
             $.post('../ajax/new_request_ajax.php',
                 {
@@ -132,9 +146,24 @@
                         Swal.fire({
                                 icon: 'success',
                                 title: 'Success',
-                                text: 'Registration successful'
+                                text: 'Application successful'
+                            }).then((result) => {
+                                if(result.isConfirmed){
+                                    loadContent('requests.php');
+                                }
                             });
-                        loadContent('requests.php');
+                        
+                    }
+                    else if(data === 'insufficient'){
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'Insufficient leave credits',
+                            }).then((result) => {
+                                if(result.isConfirmed){
+                                    loadContent('requests.php');
+                                }
+                            });
                     }
                     else{
                         Swal.fire({

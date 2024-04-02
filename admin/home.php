@@ -86,29 +86,25 @@
             </div>
             
         </div>
-        <!-- ETO YUNG DIV NG CONTENTS NA LUMALABAS KADA PINDOT SA SIDEBAR -->
-
         <div class="col-md-8 col-lg-10 bg-light">
                 <div id="contents">
                 
                 </div>
             
         </div>
-
-         <!-- ETO YUNG DIV NG CONTENTS NA LUMALABAS KADA PINDOT SA SIDEBAR -->
     </div>
 </div>
 
     
 <script>
 
-    //  ETO YUNG FUNCTION NA NAGLOLOAD NUNG MGA LALABAS NA CONTENTS KADA PUMIPINDOT SA SIDEBAR
+    
 
-    function loadContent(page) { // YUNG PARAMETER NYA EH YUNG FILE NAME NG PHP, CTRL F MO NALANG YUNG NAME NG FUNCTION PARA MAGETS MO PROCESS
-        $('#contents').load(page); // NILOLOAD NYA YUNG PHP FILE SA #CONTENT NA DIV
+    function loadContent(page) { 
+        $('#contents').load(page); 
     }
 
-    //  ETO YUNG FUNCTION NA NAGLOLOAD NUNG MGA LALABAS NA CONTENTS KADA PUMIPINDOT SA SIDEBAR
+    
 
 
     function toggleDropdowns() {

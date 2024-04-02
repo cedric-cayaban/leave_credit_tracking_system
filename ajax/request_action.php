@@ -25,8 +25,8 @@
                 echo 'success';
             }
             else{
-                // echo 'error';
-                echo $con->error;
+                echo 'error';
+                // echo $con->error;
             }
             
         }

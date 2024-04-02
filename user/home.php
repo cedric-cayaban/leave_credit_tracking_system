@@ -9,7 +9,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/home.css?ver=0002">
-   
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/9c6f27a8d7.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -81,7 +80,7 @@
             </div>
             
         </div>
-        <!-- ETO YUNG DIV NG CONTENTS NA LUMALABAS KADA PINDOT SA SIDEBAR -->
+        
 
         <div class="col-md-8 col-lg-10 mt-4 bg-light">
                 <div id="contents">
@@ -90,20 +89,20 @@
             
         </div>
 
-         <!-- ETO YUNG DIV NG CONTENTS NA LUMALABAS KADA PINDOT SA SIDEBAR -->
+         
     </div>
 </div>
 
     
 <script>
 
-    //  ETO YUNG FUNCTION NA NAGLOLOAD NUNG MGA LALABAS NA CONTENTS KADA PUMIPINDOT SA SIDEBAR
+    
 
-    function loadContent(page) { // YUNG PARAMETER NYA EH YUNG FILE NAME NG PHP, CTRL F MO NALANG YUNG NAME NG FUNCTION PARA MAGETS MO PROCESS
-        $('#contents').load(page); // NILOLOAD NYA YUNG PHP FILE SA #CONTENT NA DIV
+    function loadContent(page) { 
+        $('#contents').load(page); 
     }
 
-    //  ETO YUNG FUNCTION NA NAGLOLOAD NUNG MGA LALABAS NA CONTENTS KADA PUMIPINDOT SA SIDEBAR
+    
 
 
     function toggleDropdowns() {
