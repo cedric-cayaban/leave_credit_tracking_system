@@ -101,7 +101,7 @@
             var username = $('#username').val();
             var password = $('#password').val();
             
-            $.post('../ajax/ajax_register/register_admin.php',
+            $.post('../ajax/ajax_register/ajax_register_admin.php',
             {
                 fname: fname, 
                 mname: mname, 
