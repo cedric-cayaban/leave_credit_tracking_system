@@ -17,7 +17,7 @@
         mname = '$mname', 
         lname = '$lname', 
         birthdate = '$birthdate', 
-        contact = '$contact', 
+        contact = $contact, 
         address = '$address', 
         department = '$department', 
         employee_type = '$employee_type', 

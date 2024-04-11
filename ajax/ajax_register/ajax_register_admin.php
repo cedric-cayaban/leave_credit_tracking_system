@@ -15,7 +15,6 @@
    $regSql = $con->query("INSERT INTO admin(username, password, fname, mname, lname, contact, birthdate, address, department) 
     VALUES('$username', '$password', '$fname', '$mname', '$lname', '$contact', '$birthdate', '$address', '$department')");
 
-
     
     if ($regSql) {
         echo 'success';

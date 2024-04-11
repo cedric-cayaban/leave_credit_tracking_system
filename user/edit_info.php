@@ -99,7 +99,7 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="designation">Designation (Optional)</label>
+                                    <label for="designation">Designation </label>
                                     <select name="designation" id="designation" class="form-control select2bs4 select2 rounded-0" data-placeholder="Please Select Designation here" reqiured>
                                         <option value="<?= $employee['designation']?>">-- <?= $employee['designation_name'] ?? 'N/A'?> --</option>
                                         <?php while($designation = $designationSql -> fetch_assoc()){ ?>

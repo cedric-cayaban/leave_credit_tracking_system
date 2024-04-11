@@ -1,8 +1,10 @@
 <?php
     require('../config.php');
     session_start();
+    if(!isset($_SESSION['admin_id'])){
+        header("Location: ../index.php");
+    }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,9 +19,8 @@
 
     <title>Document</title>
 </head>
-<body onload="loadContent('dashboard.php')">
-    
 
+<body onload="loadContent('dashboard.php')">
 <div class="container-fluid">
     <div class="row flex-nowrap">
         

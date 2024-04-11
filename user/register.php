@@ -33,40 +33,44 @@
                         <div class="col-6">
                         <div class="form-group">
                                 <label for="firstname">Employee ID</label>
-                                <input type="text" name="firstname" id="empId" class="form-control rounded-0" value="" >
+                                <input type="text" name="firstname" id="empId" class="form-control rounded-0">
                             </div>
                             <div class="form-group">
                                 <label for="firstname">First Name</label>
-                                <input type="text" name="firstname" id="firstname" class="form-control rounded-0" value="" >
+                                <input type="text" name="firstname" id="firstname" class="form-control rounded-0">
                             </div>
                             <div class="form-group">
                                 <label for="middlename">Middle Name</label>
-                                <input type="text" name="middlename" id="middlename" class="form-control rounded-0" value="" >
+                                <input type="text" name="middlename" id="middlename" class="form-control rounded-0">
                             </div>
                             <div class="form-group">
                                 <label for="lastname">Last Name</label>
-                                <input type="text" name="lastname" id="lastname" class="form-control rounded-0" value="" >
+                                <input type="text" name="lastname" id="lastname" class="form-control rounded-0">
                             </div>
                             <div class="form-group">
                                 <label for="birthdate">Birthdate</label>
-                                <input type="date" name="birthdate" id="birthdate" class="form-control rounded-0" value="" >
+                                <input type="date" name="birthdate" id="birthdate" class="form-control rounded-0">
                             </div>
                             
                             <div class="form-group">
                                 <label for="address">Address</label>
                                 <textarea rows="5" name="address" id="address" class="form-control rounded-0" style="resize:none !important" ></textarea>
                             </div>
-                           
+                            <div class="form-group">
+                                <label for="contact">Contact #</label>
+                                <input type="number" name="contact" id="contact" class="form-control rounded-0">
+                            </div>
+                            
                         </div>
                         <div class="col-6">
                             <div class="form-group">
-                                <label for="contact">Contact #</label>
-                                <input type="number" name="contact" id="contact" class="form-control rounded-0" value="" >
+                                <label for="birthdate">Date hired</label>
+                                <input type="date" name="hired" id="hired" class="form-control rounded-0">
                             </div>
                             <div class="form-group">
                                 <label for="department">Department</label>
                                 <select name="department" id="department" class="form-control select2bs4 select2 rounded-0" data-placeholder="Please Select Department here" reqiured>
-                                    <option value="" disabled></option>
+                                    <option ></option>
                                     <?php while($department = $departmentSql -> fetch_assoc()){ ?>
                                         <option value="<?=$department['dept_id'] ?>"><?=$department['dept_name']?></option>
                                     <?php } ?>
@@ -75,16 +79,25 @@
                             <div class="form-group">
                                 <label for="employee_type">Employee type</label>
                                 <select name="employee_type" id="employee_type" class="form-control select2bs4 select2 rounded-0" data-placeholder="Please Select Department here" reqiured>
-                                    <option value="" disabled></option>
+                                    <option ></option>
                                     <?php while($employeeType = $empTypeSql -> fetch_assoc()){ ?>
                                         <option value="<?=$employeeType['type_id'] ?>"><?=$employeeType['type_name']?></option>
                                     <?php } ?>
                                 </select>
                             </div>
                             <div class="form-group">
+                                <label for="status">Working status</label>
+                                <select name="status" id="status" class="form-control select2bs4 select2 rounded-0" data-placeholder="Please Select Department here" reqiured>
+                                    <option ></option>
+                                    <?php while($status = $statusSql -> fetch_assoc()){ ?>
+                                        <option value="<?=$status['status_id']?>"><?=$status['status_name']?></option>
+                                    <?php } ?>
+                                </select>
+                            </div>
+                            <div class="form-group">
                                 <label for="rank">Academic rank (Optional)</label>
                                 <select name="rank" id="rank" class="form-control select2bs4 select2 rounded-0" data-placeholder="Please Select Department here" reqiured>
-                                    <option value="" disabled></option>
+                                    <option></option>
                                     <?php while($rank = $rankSql -> fetch_assoc()){ ?>
                                         <option value="<?=$rank['rank_id']?>"><?=$rank['rank_name']?></option>
                                     <?php } ?>
@@ -93,7 +106,7 @@
                             <div class="form-group">
                                 <label for="designation">Designation (Optional)</label>
                                 <select name="designation" id="designation" class="form-control select2bs4 select2 rounded-0" data-placeholder="Please Select Designation here" reqiured>
-                                    <option value="" ></option>
+                                    <option ></option>
                                     <?php while($designation = $designationSql -> fetch_assoc()){ ?>
                                         <option value="<?=$designation['designation_id']?>"><?=$designation['designation_name']?></option>
                                     <?php } ?>
@@ -133,45 +146,54 @@
             var designation = $('#designation').val();
             var username = $('#username').val();
             var password = $('#password').val();
-            
-            $.post('../ajax/ajax_register/register_user.php',
-            {
-                empId: empId,
-                fname: fname, 
-                contact: contact,
-                mname: mname, 
-                employee_type: employee_type,
-                lname: lname, 
-                rank: rank,
-                department: department,
-                birthdate: birthdate, 
-                designation: designation,
-                address: address, 
-                username: username,
-                password: password
-            }, 
-            function(data, status){
-                data = data.trim();
-                if(data === 'success'){
+            if(empId !== '' || fname !== '' || lname !== '' || birthdate !== '' || address !== '' || contact !== '' || username !== '' || password !== ''){
+                $.post('../ajax/ajax_register/register_user.php',
+                {
+                    empId: empId,
+                    fname: fname, 
+                    contact: contact,
+                    mname: mname, 
+                    employee_type: employee_type,
+                    lname: lname, 
+                    rank: rank,
+                    department: department,
+                    birthdate: birthdate, 
+                    designation: designation,
+                    address: address, 
+                    username: username,
+                    password: password
+                }, 
+                function(data, status){
+                    data = data.trim();
+                    if(data === 'success'){
 
-                    Swal.fire({
-                            icon: 'success',
-                            title: 'Success',
-                            text: 'Registration successful'
-                        }).then((result) =>{
-                            if(result.isConfirmed){
-                                window.location.href = '../index.php';
-                            }
+                        Swal.fire({
+                                icon: 'success',
+                                title: 'Success',
+                                text: 'Registration successful'
+                            }).then((result) =>{
+                                if(result.isConfirmed){
+                                    window.location.href = '../index.php';
+                                }
+                            });
+                    }
+                    else{
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'Error',
                         });
-                }
-                else{
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
-                        text: data,
-                    });
-                }
-            });
+                    }
+                });
+            }
+            else{
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Please fill up all required fields',
+                });
+            }
+            
         });
 </script>
 

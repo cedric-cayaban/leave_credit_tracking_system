@@ -16,7 +16,7 @@
    
 
    $regSql = $con->query("INSERT INTO employee(employee_id, username, password, acc_status, fname, mname, lname, sick_credits, vacation_credits, birthdate, contact, address, department, employee_type, academic_rank, designation) 
-    VALUES('$empId', '$username', '$password', 'Pending',  '$fname', '$mname', '$lname', 0, 0, '$birthdate', '$contact', '$address', '$department', '$employee_type', " . ($rank !== '' ? "'$rank'" : "NULL") . ", " . ($designation !== '' ? "'$designation'" : "NULL") . ")");
+    VALUES('$empId', '$username', '$password', 'Pending',  '$fname', '$mname', '$lname', 0, 0, '$birthdate', $contact, '$address', '$department', '$employee_type', " . ($rank !== '' ? "'$rank'" : "NULL") . ", " . ($designation !== '' ? "'$designation'" : "NULL") . ")");
   
     if ($regSql) {
         echo 'success';

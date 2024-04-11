@@ -53,6 +53,7 @@
 							if(isset($_SESSION['employee_id'])){
 								$employeeId = $_SESSION['employee_id'];
 							}
+							$counter = 0;
 							$requestSql = $con -> query("SELECT * FROM 
 								employee_leave 
 								INNER JOIN employee ON employee_leave.employee_id=employee.employee_id 
@@ -60,9 +61,17 @@
 								WHERE employee_leave.status = 'Pending' AND employee.employee_id = '$employeeId' ORDER BY leave_id DESC"
 							);
                             while($employee = $requestSql -> fetch_assoc()){
+							$counter++;
                         ?>
 						<tr>
-							
+								<?php
+                                    echo '<input type="hidden" id="empId' . $counter . '" value="' . $employee['employee_id'] . '">';
+                                    echo '<input type="hidden" id="leaveId' . $counter . '" value="' . $employee['leave_id'] . '">';
+                                    echo '<input type="hidden" id="cost' . $counter . '" value="' . $employee['credit_cost'] . '">';
+                                    echo '<input type="hidden" id="sickCredits' . $counter . '" value="' . $employee['sick_credits'] . '">';
+                                    echo '<input type="hidden" id="vacationCredits' . $counter . '" value="' . $employee['vacation_credits'] . '">';
+                                    echo '<input type="hidden" id="leaveType' . $counter . '" value="' . $employee['leave_name'] . '">';
+                                ?>
 							<td>
                             <?=$employee['leave_name']?>
                             </td>
@@ -84,8 +93,8 @@
 							</td>
 							<td>
 								<div class="dropdown">
-									<button class="btn btn-flat btn-default btn-sm dropdown-toggle" onclick="toggleDropdown()" aria-expanded="false">Action</button>
-									<div class="dropdown-content" id="dropdownMenu">
+									<button class="btn btn-flat btn-default btn-sm dropdown-toggle" onclick="toggleDropdown(<?=$counter?>)" aria-expanded="false">Action</button>
+									<div class="dropdown-content" id="dropdownMenu<?=$counter?>">
 										<a href="#" onclick="reqAction('<?=($employee['leave_id'])?>', 'view')"><i class="fa fa-eye text-primary text-dark"></i> View</a>
 										<a href="#" onclick="reqAction('<?=($employee['leave_id'])?>', 'cancel')"><i class="fa-solid fa-circle-xmark text-danger"></i> Cancel</a>
 									</div>
@@ -117,8 +126,8 @@
         });
     });
 
-	function toggleDropdown() {
-        var dropdownContent = document.getElementById("dropdownMenu");
+	function toggleDropdown(counter) {
+        var dropdownContent = document.getElementById("dropdownMenu" + counter);
         if (dropdownContent.style.display === "block") {
             dropdownContent.style.display = "none";
         } else {
@@ -160,7 +169,7 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title" id="employeeModalLabel">Leave Information</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					<button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body" id="employeeInfo">
 				

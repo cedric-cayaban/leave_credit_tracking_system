@@ -10,6 +10,7 @@
     $employeeSql = $con -> query('SELECT * FROM employee');
     $rankSql = $con -> query('SELECT * FROM academic_rank');
     $leaveTypeSql = $con -> query("SELECT * FROM leave_type");
+    $statusSql = $con -> query("SELECT * FROM working_status");
    
 
     //INNER JOIN SQL

@@ -117,24 +117,23 @@
                 creditCost = days * 0.5;
                 $("#cost").val(creditCost);
                 $("#days").val(creditCost);
-            }
-            
-           
+            }     
         }
 
         $('#submit').click(function(){
             var empId = $('#empId').val();
             var type =  $('#leave_type').val();
-            var date = $('#start_Date').val();
+            var sdate = $('#start_Date').val();
+            var edate = $('#end_date').val();
             var days = $('#days').val();
             var cost = $('#cost').val();
             var reason = $('#reason').val();
-            
-            $.post('../ajax/new_request_ajax.php',
+            if(type !== "" || sdate !== "" || edate !== "" ||  !== "" || reason !== ""){
+                $.post('../ajax/new_request_ajax.php',
                 {
                     empId: empId,
                     type: type,
-                    date: date,
+                    sdate: date,
                     days: days,
                     cost: cost,
                     reason: reason
@@ -169,10 +168,19 @@
                         Swal.fire({
                             icon: 'error',
                             title: 'Error',
-                            text: data,
+                            text: "Please fill up all required fields",
                         });
                     }
             });
+            }
+            else{
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: "Please fill up all required fields",
+                });
+            }
+            
         });
     </script>
 </body>
