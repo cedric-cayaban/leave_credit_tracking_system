@@ -36,12 +36,13 @@
 	<div class="card-body">
 		
         <div class="container-fluid">
-			<table id="tableData" class="table table-hover table-stripped">
+			<table id="tableData" class="table table-striped">
 				
 				<colgroup>
                     <col width="10%">
 					<col width="15%">
 					<col width="15%">
+                    <col width="15%">
 					<col width="10%">
 					<col width="10%">
 					<col width="10%">
@@ -51,8 +52,9 @@
 						<th>ID</th>
 						<th>Employee</th>
 						<th>Leave Type</th>
-						<th>Days</th>
-						<th>Reason</th>
+						<th>Start date</th>
+                        <th>End date</th>
+						<th>Forms</th>
 						<th>Action</th>
 					</tr>
 				</thead>
@@ -90,16 +92,18 @@
                             </td>
 							
 							<td><?=$employee['leave_name']?></td>
-							<td><?=$employee['days']?></td>
+							<td><?= date("F j, Y", strtotime($employee['start_date'])) ?></td>
+                            <td><?= date("F j, Y", strtotime($employee['end_date'])) ?></td>
 							<td>
-                                <button class="btn btn-flat btn-default btn-sm view_application" type="button" data-reason="<?=$employee['reason']?>">
-                                    <i class="fa fa-eye text-primary"></i> View
+                                <button class="btn btn-flat btn-default btn-sm view_application" type="button" id="show_forms">
+                                    <i class="fa-solid fa-eye"></i> View
                                 </button>
 							</td>
 							<td>
                             <div class="dropdown">
                                 <button class="btn btn-flat btn-default btn-sm dropdown-toggle" onclick="toggleDropdown(<?=$counter?>)" aria-expanded="false">Action</button>
                                 <div class="dropdown-content" id="dropdownMenu<?=$counter?>">
+                                <a href="#" onclick="reqAction(<?=$counter?>, 'view')"><i class="fa fa-eye text-primary"></i> View</a>
                                     <a href="#" onclick="reqAction(<?=$counter?>, 'accept')"><i class="fa-solid fa-circle-check text-success"></i> Accept</a>
                                     <a href="#" onclick="reqAction(<?=$counter?>, 'reject')"><i class="fa-solid fa-circle-xmark text-danger"></i> Reject</a>
                                 </div>
@@ -151,7 +155,7 @@
         var vacationCredits = $('#vacationCredits' + counter).val();
         var leaveType = $('#leaveType' + counter).val();
         
-        $.post('../ajax/request_action.php', 
+        $.post('../ajax/admin_request_action.php', 
         {
             empId: empId,
             leaveId: leaveId,
@@ -165,35 +169,65 @@
             if(data === 'success'){ 
                 $('#contents').load('requests.php');
             }
+            else if(data === 'error'){
+                alert(data);
+            }
             else{
-                alert('Error');
+                $('#employeeInfo').html(data);
+                $('#employeeModal').modal('show');
             }
         });
     }
     
-
-
-    $(".view_application").click(function() {
-        var reason = $(this).data('reason');
-        $('#reason').text(reason);
-        $('#applicationDetailsModal').modal('show');
+    $("#show_forms").click(function() {
+       
+        $('#formsModal').modal('show');
     });
+
+    function selectForm(formType) {
+        if (formType === 'medical') {
+            alert('Medical Certificate Selected');
+        } else if (formType === 'request') {
+            alert('Request Form Selected');
+        }
+        $('#formsModal').modal('hide');
+    }
  
 </script>
 
-<div class="modal fade" id="applicationDetailsModal" tabindex="-1" aria-labelledby="applicationDetailsModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg" style="max-width: 600px;"> 
+    <div class="modal fade" id="employeeModal" tabindex="-1" aria-labelledby="employeeModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="employeeModalLabel">Leave Information</h5>
+					<button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body" id="employeeInfo">
+				
+				</div>
+			</div>
+		</div>
+	</div>
+
+    <div class="modal fade" id="formsModal" tabindex="-1" aria-labelledby="formsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="applicationDetailsModalLabel"> Reason of leave:</h5>
+                <h5 class="modal-title" id="formsModalLabel">Select Form</h5>
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <p id="reason"></p>
+            <div class="modal-body text-center"> 
+                <div class="col">
+                        <button class="btn btn-primary" onclick="selectForm('medical')">Medical Certificate</button>
+                        <button class="btn btn-primary" onclick="selectForm('request')">Request Form</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+
 
 
 

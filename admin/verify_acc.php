@@ -37,7 +37,7 @@
 	<div class="card-body">
 		
         <div class="container-fluid">
-			<table id="tableData" class="table table-hover table-stripped">
+			<table id="tableData" class="table table-striped">
 				
 				<colgroup>
                     <col width="10%">

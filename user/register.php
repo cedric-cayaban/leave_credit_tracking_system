@@ -141,12 +141,14 @@
             var address = $('#address').val();
             var contact = $('#contact').val();
             var employee_type = $('#employee_type').val();
+            var date_hired = $('#hired').val();
             var rank = $('#rank').val();
             var department = $('#department').val();
             var designation = $('#designation').val();
             var username = $('#username').val();
             var password = $('#password').val();
-            if(empId !== '' || fname !== '' || lname !== '' || birthdate !== '' || address !== '' || contact !== '' || username !== '' || password !== ''){
+            var working_status  = $('#status').val();
+            if(empId !== '' || fname !== '' || lname !== '' || birthdate !== '' || address !== '' || contact !== '' || username !== '' || password !== '' ||employee_type !== '' ||department !== '' || date_hired !== '' || working_status = ''){
                 $.post('../ajax/ajax_register/register_user.php',
                 {
                     empId: empId,
@@ -160,6 +162,8 @@
                     birthdate: birthdate, 
                     designation: designation,
                     address: address, 
+                    date_hired: date_hired,
+                    working_status: working_status,
                     username: username,
                     password: password
                 }, 

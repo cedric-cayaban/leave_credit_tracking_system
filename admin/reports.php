@@ -40,13 +40,14 @@
 	<div class="card-body">
 		
         <div class="container-fluid">
-			<table id="tableData" class="table table-hover table-stripped">
+			<table id="tableData" class="table table-striped">
 				
 				<colgroup>
-                    <col width="10%">
+                <col width="10%">
 					<col width="15%">
 					<col width="15%">
-					<col width="15%">
+                    <col width="15%">
+					<col width="10%">
 					<col width="10%">
 					<col width="10%">
 				</colgroup>
@@ -55,7 +56,8 @@
 						<th>ID</th>
 						<th>Employee</th>
 						<th>Leave Type</th>
-						<th>Date</th>
+						<th>Start date</th>
+                        <th>End date</th>
 						<th>Days</th>
 						<th>Status</th>
 					</tr>
@@ -84,7 +86,8 @@
                             </td>
 							
 							<td><?=$employee['leave_name']?></td>
-							<td><?= date('F j, Y', strtotime($employee['date'])) ?></td>
+							<td><?= date('F j, Y', strtotime($employee['start_date'])) ?></td>
+                            <td><?= date('F j, Y', strtotime($employee['end_date'])) ?></td>
 							<td>
                                 <?=$employee['days']?>
 							</td>

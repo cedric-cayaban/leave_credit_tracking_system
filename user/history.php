@@ -31,13 +31,14 @@
 	<div class="card-body">
 		
         <div class="container-fluid">
-			<table id="tableData" class="table table-hover table-stripped">
+			<table id="tableData" class="table table-striped">
 				
 				<colgroup>
                     <col width="15%">
 					<col width="10%">
 					<col width="10%">
 					<col width="15%">
+                    <col width="15%">
 					<col width="10%">
 					<col width="10%">
 				</colgroup>
@@ -46,7 +47,8 @@
                         <th>Leave Type</th>
 						<th>Days</th>
 						<th>Credit Cost</th>
-						<th>Date</th>
+						<th>Start Date</th>
+                        <th>End Date</th>
 						<th>Reason</th>
 						<th>Status</th>
 					</tr>
@@ -69,7 +71,8 @@
 							<td><?=$employee['leave_name']?></td>
 							<td><?=$employee['days']?></td>
 							<td><?=$employee['credit_cost']?></td>
-							<td><?= date('F j, Y', strtotime($employee['date'])) ?></td>
+							<td><?= date('F j, Y', strtotime($employee['start_date'])) ?></td>
+                            <td><?= date('F j, Y', strtotime($employee['end_date'])) ?></td>
 							<td>
                                 <button class="btn btn-flat btn-default btn-sm view_application" type="button" data-reason="<?=$employee['reason']?>">
                                     <i class="fa fa-eye text-primary"></i> View

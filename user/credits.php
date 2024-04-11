@@ -37,6 +37,7 @@
             LEFT JOIN academic_rank ON employee.academic_rank = academic_rank.rank_id
             LEFT JOIN designation ON employee.designation = designation.designation_id
             LEFT JOIN department ON employee.department = department.dept_id
+            LEFT JOIN working_status ON employee.working_status = working_status.status_id
             WHERE employee.employee_id = '$employeeId'
             "); 
             while($employee = $infoSql -> fetch_assoc()){
@@ -63,22 +64,12 @@
                             <div class="row">
                                 <div class="col-11">
                                     <div class="d-flex w-max-100">
-                                        <label class="float-left w-auto whitespace-nowrap">Identification:</label>
+                                        <label class="float-left w-auto whitespace-nowrap">ID:</label>
                                         <p class="col-md border-bottom px-2 border-dark w-100"><b>&nbsp<?=$employee['employee_id'] ?></b></p>
                                     </div>
                                     <div class="d-flex w-max-100">
                                         <label class="float-left w-auto whitespace-nowrap">Name:</label>
                                         <p class="col-md border-bottom px-2 border-dark w-100"><b>&nbsp<?=$employee['lname']?>, <?=$employee['fname']?> <?=$employee['mname'] ?></b></p>
-                                    </div>
-                                    <div class="row justify-content-between w-max-100 mr-0">
-                                        <div class="col-6 d-flex w-max-100">
-                                            <label class="float-left w-auto whitespace-nowrap">Birthdate: </label>
-                                            <p class="col-md border-bottom px-2 border-dark w-100"><b><?= date("M d, Y", strtotime($employee['birthdate'])) ?></b></p>
-                                        </div>
-                                        <div class="col-6 d-flex w-max-100">
-                                            <label class="float-left w-auto whitespace-nowrap">Contact: </label>
-                                            <p class="col-md border-bottom px-2 border-dark w-100"><b><?= $employee['contact'] ?></b></p>
-                                        </div>
                                     </div>
                                     <div class="d-flex w-max-100">
                                         <label class="float-left w-auto whitespace-nowrap">Address: &nbsp </label>
@@ -86,12 +77,31 @@
                                     </div>
                                     <div class="row justify-content-between w-max-100 mr-0">
                                         <div class="col-6 d-flex w-max-100">
+                                            <label class="float-left w-auto whitespace-nowrap">Contact: </label>
+                                            <p class="col-md border-bottom px-2 border-dark w-100"><b><?= $employee['contact'] ?></b></p>
+                                        </div>
+                                        <div class="col-6 d-flex w-max-100">
+                                            <label class="float-left w-auto whitespace-nowrap">Birthdate: </label>
+                                            <p class="col-md border-bottom px-2 border-dark w-100"><b><?= date("M d, Y", strtotime($employee['birthdate'])) ?></b></p>
+                                        </div> 
+                                    </div>
+                                    
+                                    <div class="row justify-content-between w-max-100 mr-0">
+                                        <div class="col-6 d-flex w-max-100">
+                                            <label class="float-left w-auto whitespace-nowrap">Date hired: </label>
+                                            <p class="col-md border-bottom px-2 border-dark w-100"><b><?= date("M d, Y", strtotime($employee['date_hired'])) ?></b></p>
+                                        </div>
+                                        <div class="col-6 d-flex w-max-100">
                                             <label class="float-left w-auto whitespace-nowrap">Employee type: </label>
                                             <p class="col-md border-bottom px-2 border-dark w-100"><b><?= empty($employee['dept_name'])? 'N/A' : $employee['type_name'] ?></b></p>
                                         </div>
                                         <div class="col-6 d-flex w-max-100">
                                             <label class="float-left w-auto whitespace-nowrap">Department: </label>
                                             <p class="col-md border-bottom px-2 border-dark w-100"><b><?= empty($employee['dept_name'])? 'N/A' : $employee['dept_name'] ?></b></p>
+                                        </div>
+                                        <div class="col-6 d-flex w-max-100">
+                                            <label class="float-left w-auto whitespace-nowrap">Working status: </label>
+                                            <p class="col-md border-bottom px-2 border-dark w-100"><b><?= empty($employee['status_name'])? 'N/A' : $employee['status_name'] ?></b></p>
                                         </div>
                                         <div class="col-6 d-flex w-max-100">
                                             <label class="float-left w-auto whitespace-nowrap">Designation: </label>

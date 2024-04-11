@@ -19,7 +19,8 @@
             $html .= '<p><strong>Leave Type:</strong> ' . $employee['leave_name'] . '</p>';
             $html .= '<p><strong>Days:</strong> ' . $employee['days'] . '</p>';
             $html .= '<p><strong>Credit Cost:</strong> ' . $employee['credit_cost'] . '</p>';
-            $html .= '<p><strong>Date:</strong> ' . date('F j, Y', strtotime($employee['date'])) . '</p>';
+            $html .= '<p><strong>Start Date:</strong> ' . date('F j, Y', strtotime($employee['start_date'])) . '</p>';
+            $html .= '<p><strong>End Date:</strong> ' . date('F j, Y', strtotime($employee['end_date'])) . '</p>';
             $html .= '<p><strong>Reason:</strong> ' . $employee['reason'] . '</p>';
             
             echo $html;

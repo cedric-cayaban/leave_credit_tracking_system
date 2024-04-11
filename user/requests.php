@@ -28,12 +28,13 @@
 	<div class="card-body">
 		<div class="container-fluid">
         <div class="container-fluid">
-			<table id="tableData" class="table table-hover table-stripped">
+			<table id="tableData" class="table table-striped">
 				
 				<colgroup>
 					<col width="15%">
 					<col width="10%">
 					<col width="10%">
+					<col width="15%">
 					<col width="15%">
 					<col width="10%">
 					<col width="10%">
@@ -43,7 +44,8 @@
 						<th>Leave Type</th>
 						<th>Days</th>
 						<th>Credit Cost</th>
-						<th>Date</th>
+						<th>Start Date</th>
+						<th>End Date</th>
 						<th>Status</th>
 						<th>Action</th>
 					</tr>
@@ -81,7 +83,8 @@
                             </td>
 							
 							<td><?=$employee['credit_cost']?></td>
-							<td><?= date('F j, Y', strtotime($employee['date'])) ?></td>
+							<td><?= date('F j, Y', strtotime($employee['start_date'])) ?></td>
+							<td><?= date('F j, Y', strtotime($employee['end_date'])) ?></td>
 							<td>
                             <?php if($employee['status'] == 'Approved'): ?>
 									<b class="text-success">Approved</b>

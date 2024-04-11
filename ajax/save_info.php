@@ -11,6 +11,8 @@
     $employee_type = $_POST['employee_type'];
     $rank = $_POST['rank'];
     $designation = $_POST['designation'];
+    $working_status = $_POST['working_status'];
+    $date_hired = $_POST['date_hired'];
 
     $updateSql = $con->query("UPDATE employee SET 
         fname = '$fname', 
@@ -18,9 +20,11 @@
         lname = '$lname', 
         birthdate = '$birthdate', 
         contact = $contact, 
+        date_hired = '$date_hired',
         address = '$address', 
         department = '$department', 
         employee_type = '$employee_type', 
+        working_status = $working_status,
         academic_rank = " . ($rank !== '' ? "'$rank'" : "NULL") . ", 
         designation = " . ($designation !== '' ? "'$designation'" : "NULL") . " 
         WHERE employee_id = '$empId'");

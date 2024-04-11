@@ -29,6 +29,7 @@
             LEFT JOIN academic_rank ON employee.academic_rank = academic_rank.rank_id
             LEFT JOIN designation ON employee.designation = designation.designation_id
             LEFT JOIN department ON employee.department = department.dept_id
+            LEFT JOIN working_status ON employee.working_status = working_status.status_id
             WHERE employee.employee_id = '$employeeId'
             "); 
             while($employee = $infoSql -> fetch_assoc()){
@@ -64,6 +65,10 @@
                                     <label for="address">Address</label>
                                     <textarea rows="5" name="address" id="address" class="form-control rounded-0" style="resize:none !important" ><?= $employee['address']?></textarea>
                                 </div>
+                                <div class="form-group">
+                                    <label for="date_hired">Date hired</label>
+                                    <input type="date" name="date_hired" id="date_hired" class="form-control rounded-0" value="<?= $employee['date_hired']?>" >
+                                </div>
                             
                             </div>
                             <div class="col-6">
@@ -86,6 +91,15 @@
                                         <option value="<?= $employee['employee_type']?>">-- <?= $employee['type_name'] ?? 'N/A'?> --</option>
                                         <?php while($employeeType = $empTypeSql -> fetch_assoc()){ ?>
                                             <option value="<?=$employeeType['type_id'] ?>"><?=$employeeType['type_name']?></option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="working_status">Working status</label>
+                                    <select name="working_status" id="working_status" class="form-control select2bs4 select2 rounded-0" data-placeholder="Please Select Department here" reqiured>
+                                        <option value="<?= $employee['status_id']?>">-- <?= $employee['status_name'] ?? 'N/A'?> --</option>
+                                        <?php while($status = $statusSql -> fetch_assoc()){ ?>
+                                            <option value="<?=$status['status_id'] ?>"><?=$status['status_name']?></option>
                                         <?php } ?>
                                     </select>
                                 </div>
@@ -134,46 +148,60 @@
             var rank = $('#rank').val();
             var department = $('#department').val();
             var designation = $('#designation').val();
-            
-            
-            $.post('../ajax/save_info.php',
-            {
-                empId: empId,
-                fname: fname, 
-                contact: contact,
-                mname: mname, 
-                employee_type: employee_type,
-                lname: lname, 
-                rank: rank,
-                department: department,
-                birthdate: birthdate, 
-                designation: designation,
-                address: address, 
-                
-            }, 
-            function(data, status){
-                data = data.trim();
-                if(data === 'success'){
+            var date_hired = $('#date_hired').val();
+            var working_status = $('#working_status').val();
 
-                    Swal.fire({
-                            icon: 'success',
-                            title: 'Success',
-                            text: 'Information saved'
-                        }).then((result) =>{
-                            loadContent('edit_info.php');
-                            if(result.isConfirmed){
-                                loadContent('credits.php');
-                            }
+            if(empId !== '' || fname !== '' || mname !== '' || lname !== '' || birthdate !== '' || address !== '' || contact !== '' || employee_type !== '' || department !== '' || date_hired !== '' || working_status !== ''){
+                $.post('../ajax/save_info.php',
+                {
+                    empId: empId,
+                    fname: fname, 
+                    contact: contact,
+                    mname: mname, 
+                    employee_type: employee_type,
+                    lname: lname, 
+                    rank: rank,
+                    department: department,
+                    birthdate: birthdate, 
+                    designation: designation,
+                    address: address, 
+                    date_hired: date_hired,
+                    working_status: working_status
+                    
+                }, 
+                function(data, status){
+                    data = data.trim();
+                    if(data === 'success'){
+                        Swal.fire({
+                                icon: 'success',
+                                title: 'Success',
+                                text: 'Information saved'
+                            }).then((result) =>{
+                                loadContent('edit_info.php');
+                                if(result.isConfirmed){
+                                    loadContent('credits.php');
+                                }
+                            });
+                    }
+                    else{
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: data,
                         });
-                }
-                else{
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
-                        text: data,
-                    });
-                }
-            });
+                    }
+                });
+            }
+            else{
+                Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Please fill out all required fields.'
+                });
+            }
+            
+            
+            
         });
     </script>
 </body>
