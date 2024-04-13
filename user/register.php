@@ -148,7 +148,7 @@
             var username = $('#username').val();
             var password = $('#password').val();
             var working_status  = $('#status').val();
-            if(empId !== '' || fname !== '' || lname !== '' || birthdate !== '' || address !== '' || contact !== '' || username !== '' || password !== '' ||employee_type !== '' ||department !== '' || date_hired !== '' || working_status = ''){
+            if(empId !== '' && fname !== '' && lname !== '' && birthdate !== '' && address !== '' && contact !== '' && username !== '' && password !== '' &&employee_type !== '' &&department !== '' && date_hired !== '' && working_status = ''){
                 $.post('../ajax/ajax_register/register_user.php',
                 {
                     empId: empId,

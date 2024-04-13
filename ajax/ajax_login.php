@@ -6,7 +6,7 @@
     $password = $_POST['password'];
     
     $employeeSql = $con -> query("SELECT * FROM employee WHERE employee.username = '$username' AND employee.password = '$password' AND employee.acc_status = 'Accepted'");
-    $adminSql = $con -> query("SELECT * FROM admin WHERE admin.username = '$username' AND admin.password = '$password'");
+    $adminSql = $con -> query("SELECT * FROM admin WHERE admin.username = '$username' AND admin.password = '$password' AND admin.acc_status = 'Accepted'");
 
     if(mysqli_num_rows($employeeSql) >=1 ){
         $employee = $employeeSql -> fetch_assoc();

@@ -29,7 +29,7 @@
 	<div class="card-header d-flex justify-content-between">
 		<h3 class="card-title">Electrical Engineering Most Leaves</h3>
         
-        
+    
 	</div>
 	<div class="card-body">
 		
@@ -37,61 +37,52 @@
 			<table id="tableData" class="table table-striped">
 				
 				<colgroup>
-                <col width="10%">
-					<col width="15%">
+                    <col width="5%">
+					<col width="10%">
 					<col width="15%">
                     <col width="15%">
 					<col width="10%">
 					<col width="10%">
-					<col width="10%">
+				
 				</colgroup>
 				<thead>
 					<tr>
-						<th>ID</th>
-						<th>Employee</th>
-						<th>Leave Type</th>
-						<th>Start date</th>
-                        <th>End date</th>
-						<th>Days</th>
-						<th>Status</th>
+						<th>#</th>
+						<th>Employee ID</th>
+						<th>First name</th>
+						<th>Middle name</th>
+                        <th>Last name</th>
+						<th>No. Of leaves</th>
+						
 					</tr>
 				</thead>
 				<tbody>
                         <?php
-                            $reportSql = $con -> query("SELECT * FROM 
+                            $counter = 0;
+                            $reportSql = $con -> query("SELECT *, COUNT(employee_leave.leave_id) AS leave_count FROM 
                             employee_leave 
                             INNER JOIN employee ON employee_leave.employee_id=employee.employee_id 
                             INNER JOIN leave_type ON employee_leave.leave_type = leave_type.type_id 
-                            WHERE employee.department = 5 AND employee_leave.status = 'Accepted' OR employee_leave.status = 'Rejected'"
+                            WHERE employee.department = 5 AND employee_leave.status = 'Accepted'
+                            GROUP BY employee.employee_id
+                            ORDER BY leave_count DESC"
                             );
                             while($employee = $reportSql -> fetch_assoc()){
+                            $counter++;
                         ?>
 						<tr>
 							
 							<td>
-                            <small><?=$employee['employee_id']?></small><br>
+                            <small><?=$counter?></small><br>
                             </td>
+							<td><?=$employee['employee_id']?></td>
+                            <td><?=$employee['fname']?></td>
+                            <td><?=$employee['mname']?></td>
+                            <td><?=$employee['lname']?></td>
 							<td>
-								
-								<small><?=$employee['fname'] . ' ' . $employee['lname']?> </small>
-                            </td>
+                                <?=$employee['leave_count']?>
+							</td>
 							
-							<td><?=$employee['leave_name']?></td>
-							<td><?= date('F j, Y', strtotime($employee['start_date'])) ?></td>
-                            <td><?= date('F j, Y', strtotime($employee['end_date'])) ?></td>
-							<td>
-                                <?=$employee['days']?>
-							</td>
-							<td>
-                            <?php if($employee['status'] == 'Accepted'): ?>
-									<b class="text-success">Approved</b>
-								<?php elseif($employee['status'] == 'Rejected'): ?>
-									<b class="text-danger">Denied</b>
-								<?php else: ?>
-									<b class="text-primary">Pending</b>
-								<?php endif; ?>
-
-							</td>
 						</tr>
 
                         <?php

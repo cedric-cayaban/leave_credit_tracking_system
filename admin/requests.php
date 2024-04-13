@@ -64,6 +64,7 @@
                                 $adminDept = $_SESSION['department'];
                             }
                             $counter = 0;
+                            $sickChecker = false;
                             $requestSql = $con -> query("SELECT * FROM 
                             employee_leave 
                             INNER JOIN employee ON employee_leave.employee_id=employee.employee_id 
@@ -83,8 +84,11 @@
                                     echo '<input type="hidden" id="sickCredits' . $counter . '" value="' . $employee['sick_credits'] . '">';
                                     echo '<input type="hidden" id="vacationCredits' . $counter . '" value="' . $employee['vacation_credits'] . '">';
                                     echo '<input type="hidden" id="leaveType' . $counter . '" value="' . $employee['leave_name'] . '">';
+                                    
                                 ?>
-                                
+                                <input type="hidden" id="medicalCertificate<?=$counter?>" value="<?=$employee['med_cert']?>">
+                                <input type="hidden" id="leaveForm<?=$counter?>" value="<?=$employee['leave_form']?>">
+
                                 <small><?=$employee['employee_id']?></small><br>
                             </td>
 							<td>
@@ -92,17 +96,28 @@
                             </td>
 							
 							<td><?=$employee['leave_name']?></td>
+                            <?php if($employee['leave_type'] == 2) $sickChecker = true; ?>
 							<td><?= date("F j, Y", strtotime($employee['start_date'])) ?></td>
                             <td><?= date("F j, Y", strtotime($employee['end_date'])) ?></td>
 							<td>
-                                <button class="btn btn-flat btn-default btn-sm view_application" type="button" id="show_forms">
-                                    <i class="fa-solid fa-eye"></i> View
-                                </button>
+                            <div class="dropdown">
+                                <button class="btn btn-flat btn-default btn-sm dropdown-toggle" onclick="toggleFiles(<?=$counter?>)" aria-expanded="false">Select</button>
+                                <div class="dropdown-content" id="filesMenu<?=$counter?>">
+                                    <?php
+                                    if($sickChecker){
+                                        echo '<a href="#"onclick="selectForm(\'medical\', ' . $counter . ')"><i class="fas fa-file-medical"></i> Med Certificate</a>';
+                                    }
+                                
+                                    ?>
+
+                                    <a href="#"onclick="selectForm('leave', <?=$counter?>)"><i class="fas fa-file-alt"></i> Leave Form</a>
+                                </div>
+                            </div>
 							</td>
 							<td>
                             <div class="dropdown">
-                                <button class="btn btn-flat btn-default btn-sm dropdown-toggle" onclick="toggleDropdown(<?=$counter?>)" aria-expanded="false">Action</button>
-                                <div class="dropdown-content" id="dropdownMenu<?=$counter?>">
+                                <button class="btn btn-flat btn-default btn-sm dropdown-toggle" onclick="toggleAction(<?=$counter?>)" aria-expanded="false">Action</button>
+                                <div class="dropdown-content" id="actionMenu<?=$counter?>">
                                 <a href="#" onclick="reqAction(<?=$counter?>, 'view')"><i class="fa fa-eye text-primary"></i> View</a>
                                     <a href="#" onclick="reqAction(<?=$counter?>, 'accept')"><i class="fa-solid fa-circle-check text-success"></i> Accept</a>
                                     <a href="#" onclick="reqAction(<?=$counter?>, 'reject')"><i class="fa-solid fa-circle-xmark text-danger"></i> Reject</a>
@@ -137,8 +152,19 @@
         });
     });
 
-    function toggleDropdown(counter) {
-        var dropdownContent = document.getElementById("dropdownMenu" + counter);
+    function toggleAction(counter) {
+       
+        var dropdownContent = document.getElementById("actionMenu" + counter);
+        if (dropdownContent.style.display === "block") {
+            dropdownContent.style.display = "none";
+        } else {
+            dropdownContent.style.display = "block";
+        }
+    }
+
+    function toggleFiles(counter) {
+        
+        var dropdownContent = document.getElementById("filesMenu" + counter);
         if (dropdownContent.style.display === "block") {
             dropdownContent.style.display = "none";
         } else {
@@ -180,18 +206,30 @@
     }
     
     $("#show_forms").click(function() {
-       
         $('#formsModal').modal('show');
     });
 
-    function selectForm(formType) {
-        if (formType === 'medical') {
-            alert('Medical Certificate Selected');
-        } else if (formType === 'request') {
-            alert('Request Form Selected');
+    function selectForm(formType, counter) {
+    var fileName;
+    if (formType === 'medical') {
+        fileName = $('#medicalCertificate' + counter).val();
+        if (fileName) {
+            window.open('images/' + fileName, '_blank');
+        } else {
+            alert('No medical certificate uploaded.');
         }
-        $('#formsModal').modal('hide');
+    } else if (formType === 'leave') {
+        fileName = $('#leaveForm' + counter).val();
+        if (fileName) {
+            window.open('images/' + fileName, '_blank');
+        } else {
+            alert('No leave form uploaded.');
+        }
     }
+    $('#formsModal').modal('hide');
+}
+
+
  
 </script>
 
@@ -210,22 +248,28 @@
 	</div>
 
     <div class="modal fade" id="formsModal" tabindex="-1" aria-labelledby="formsModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="formsModalLabel">Select Form</h5>
-                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body text-center"> 
-                <div class="col">
-                        <button class="btn btn-primary" onclick="selectForm('medical')">Medical Certificate</button>
-                        <button class="btn btn-primary" onclick="selectForm('request')">Request Form</button>
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="formsModalLabel">Select Form</h5>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center"> 
+                    <div class="col">
+                            <?php
+                                if($sickChecker){
+                                    echo '<button class="btn btn-primary" onclick="selectForm(\'medical\', ' . $counter . ')">Medical Certificate</button>';
+                                }
+                            
+                            ?>
+
+                            <button class="btn btn-primary" onclick="selectForm('leave', <?=$counter?>)">Leave Form</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
 
 

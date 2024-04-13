@@ -33,7 +33,7 @@
            
           <div class="col-12 col-sm-6 col-md-4">
             <div class="info-box  mb-3" onclick="loadContent('departments/abel.php')">
-              <span class="info-box-icon bg-primary elevation-1"> <i class="fas fa-user-tag"></i></span>
+              <span class="info-box-icon bg-primary elevation-1"> <i class="fas fa-user-tag text-white"></i></span>
               <div class="info-box-content">
                 <span class="info-box-text">ABEL: </span>
                 <span class="info-box-number text-right">
@@ -57,19 +57,19 @@
           
           <div class="col-12 col-sm-6 col-md-4">
             <div class="info-box mb-3" onclick="loadContent('departments/architecture.php')">
-              <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-building"></i></span>
+              <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-building "></i></span>
               
               <div class="info-box-content">
                 <span class="info-box-text">Architecture: </span>
                 <span class="info-box-number text-right">
                   <?php 
-                   $abel = $con->query("SELECT COUNT(*) AS count
+                   $archi = $con->query("SELECT COUNT(*) AS count
                    FROM employee_leave
                    INNER JOIN employee ON employee_leave.employee_id = employee.employee_id
                    WHERE employee.department = 2
                    ")->fetch_assoc()['count'];
 
-                   echo number_format($abel);
+                   echo number_format($archi);
                   ?>
                 </span>
               </div>
@@ -86,13 +86,13 @@
                 <span class="info-box-text">Civil Engineering: </span>
                 <span class="info-box-number text-right">
                   <?php 
-                   $abel = $con->query("SELECT COUNT(*) AS count
+                   $civil = $con->query("SELECT COUNT(*) AS count
                    FROM employee_leave
                    INNER JOIN employee ON employee_leave.employee_id = employee.employee_id
-                   WHERE employee.department = 1
+                   WHERE employee.department = 3
                    ")->fetch_assoc()['count'];
 
-                   echo number_format($abel);
+                   echo number_format($civil);
                   ?>
                 </span>
               </div>
@@ -103,19 +103,19 @@
 
           <div class="col-12 col-sm-6 col-md-4">
             <div class="info-box mb-3" onclick="loadContent('departments/compEngineering.php')">
-              <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-laptop"></i></span>
+              <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-laptop text-white"></i></span>
               
               <div class="info-box-content">
                 <span class="info-box-text">Computer Engineering: </span>
                 <span class="info-box-number text-right">
                   <?php 
-                   $abel = $con->query("SELECT COUNT(*) AS count
+                   $comp = $con->query("SELECT COUNT(*) AS count
                    FROM employee_leave
                    INNER JOIN employee ON employee_leave.employee_id = employee.employee_id
-                   WHERE employee.department = 1
+                   WHERE employee.department = 4
                    ")->fetch_assoc()['count'];
 
-                   echo number_format($abel);
+                   echo number_format($comp);
                   ?>
                 </span>
               </div>
@@ -132,13 +132,13 @@
                 <span class="info-box-text">Electrical Engineering: </span>
                 <span class="info-box-number text-right">
                   <?php 
-                   $abel = $con->query("SELECT COUNT(*) AS count
+                   $elec = $con->query("SELECT COUNT(*) AS count
                    FROM employee_leave
                    INNER JOIN employee ON employee_leave.employee_id = employee.employee_id
-                   WHERE employee.department = 1
+                   WHERE employee.department = 5
                    ")->fetch_assoc()['count'];
 
-                   echo number_format($abel);
+                   echo number_format($elec);
                   ?>
                 </span>
               </div>
@@ -154,13 +154,13 @@
                 <span class="info-box-text">Information Technology: </span>
                 <span class="info-box-number text-right">
                   <?php 
-                   $abel = $con->query("SELECT COUNT(*) AS count
+                   $it = $con->query("SELECT COUNT(*) AS count
                    FROM employee_leave
                    INNER JOIN employee ON employee_leave.employee_id = employee.employee_id
-                   WHERE employee.department = 1
+                   WHERE employee.department = 6
                    ")->fetch_assoc()['count'];
 
-                   echo number_format($abel);
+                   echo number_format($it);
                   ?>
                 </span>
               </div>
@@ -170,19 +170,19 @@
           </div>
           <div class="col-12 col-sm-6 col-md-4">
             <div class="info-box mb-3" onclick="loadContent('departments/mathematics.php')">
-              <span class="info-box-icon bg-primary elevation-1"> <i class="fas fa-calculator"></i></span>
+              <span class="info-box-icon bg-primary elevation-1"> <i class="fas fa-calculator text-white"></i></span>
               
               <div class="info-box-content">
                 <span class="info-box-text">Mathematics: </span>
                 <span class="info-box-number text-right">
                   <?php 
-                   $abel = $con->query("SELECT COUNT(*) AS count
+                   $math = $con->query("SELECT COUNT(*) AS count
                    FROM employee_leave
                    INNER JOIN employee ON employee_leave.employee_id = employee.employee_id
-                   WHERE employee.department = 1
+                   WHERE employee.department = 7
                    ")->fetch_assoc()['count'];
 
-                   echo number_format($abel);
+                   echo number_format($math);
                   ?>
                 </span>
               </div>
@@ -199,13 +199,13 @@
                 <span class="info-box-text">Mechanical Engineering: </span>
                 <span class="info-box-number text-right">
                   <?php 
-                    $abel = $con->query("SELECT COUNT(*) AS count
+                    $mech = $con->query("SELECT COUNT(*) AS count
                     FROM employee_leave
                     INNER JOIN employee ON employee_leave.employee_id = employee.employee_id
-                    WHERE employee.department = 1
+                    WHERE employee.department = 8
                     ")->fetch_assoc()['count'];
 
-                    echo number_format($abel);
+                    echo number_format($mech);
                   ?>
                 </span>
               </div>

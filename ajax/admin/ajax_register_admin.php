@@ -1,5 +1,6 @@
 <?php
     require('../../config.php');
+    $adminId = $_POST['adminId'];
     $username = $_POST['username'];
     $password = $_POST['password'];
     $fname = $_POST['fname'];
@@ -12,8 +13,8 @@
    
    
 
-   $regSql = $con->query("INSERT INTO admin(username, password, fname, mname, lname, contact, birthdate, address, department) 
-    VALUES('$username', '$password', '$fname', '$mname', '$lname', '$contact', '$birthdate', '$address', '$department')");
+   $regSql = $con->query("INSERT INTO admin(admin_id, username, password, acc_status, fname, mname, lname, contact, birthdate, address, department) 
+    VALUES('$adminId', '$username', '$password', 'Pending', '$fname', '$mname', '$lname', '$contact', '$birthdate', '$address', '$department')");
 
     
     if ($regSql) {

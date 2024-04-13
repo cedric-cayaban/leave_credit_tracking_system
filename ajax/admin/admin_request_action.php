@@ -36,7 +36,7 @@
                                     employee 
                                     INNER JOIN employee_leave ON employee.employee_id=employee_leave.employee_id 
                                     INNER JOIN leave_type ON employee_leave.leave_type=leave_type.type_id 
-                                    WHERE employee.employee_id = '$empId'");
+                                    WHERE employee_leave.leave_id = '$leaveId'");
 
         if($employeeInfoSql){
             $employee = $employeeInfoSql->fetch_assoc();

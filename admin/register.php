@@ -32,6 +32,10 @@
                     <div class="row">
                         <div class="col-6">
                             <div class="form-group">
+                                <label for="admin_Id">Admin ID</label>
+                                <input type="text" name="admin_Id" id="admin_Id" class="form-control rounded-0" value="" >
+                            </div>
+                            <div class="form-group">
                                 <label for="firstname">First Name</label>
                                 <input type="text" name="firstname" id="firstname" class="form-control rounded-0" value="" >
                             </div>
@@ -91,6 +95,7 @@
 
 <script>
     $('#register').click(function(){
+            var adminId = $('#admin_Id').val();
             var fname = $('#firstname').val();
             var mname = $('#middlename').val();
             var lname = $('#lastname').val();
@@ -100,9 +105,10 @@
             var department = $('#department').val();
             var username = $('#username').val();
             var password = $('#password').val();
-            if(fname !== "" || mname !== "" || lname !== "" || birthdate !== "" || address !== "" || contact !== "" || username !== "" || password !== ""){
+            if(fname !== "" && mname !== "" && lname !== "" && birthdate !== "" && address !== "" && contact !== "" && username !== "" && password !== ""){
                 $.post('../ajax/admin/ajax_register_admin.php',
                 {
+                    adminId: adminId,
                     fname: fname, 
                     mname: mname, 
                     lname: lname,
