@@ -22,6 +22,7 @@
         if(isset($_SESSION['employee_id'])){
             $employeeId = $_SESSION['employee_id'];
         }
+        $sickChecker = false;
         $infoSql = $con->query("SELECT *
             FROM employee 
             LEFT JOIN leave_type ON employee.employee_type = leave_type.type_id 
@@ -46,7 +47,7 @@
                                 <div class="form-group">
                                     <input type="hidden" id="empId" value="<?=$employee['employee_id']?>">
                                     <label for="leave_type">Leave Type</label>
-                                    <select name="leave_type" id="leave_type" class="form-control select2bs4 select2 rounded-0">
+                                    <select name="leave_type" id="leave_type" class="form-control select2bs4 select2 rounded-0" onchange="computeCredit()">
                                         <?php 
                                             while($leaveType = $leaveTypeSql->fetch_assoc()){ 
                                         ?>
@@ -82,10 +83,11 @@
                                     <label for="reason">Leave form</label>
                                     <input type="file" name="cost" id="leave_form" class="form-control rounded-0" value="">
                                 </div>
-                                <div class="form-group">
-                                    <label for="reason">Medical Certificate</label>
-                                    <input type="file" name="cost" id="medical_certificate" class="form-control rounded-0" value="">
+                                <div class="form-group" id="medCert_upload" style="display: none;">
+                                    <label for="medical_certificate">Medical Certificate</label>
+                                    <input type="file" name="medical_certificate" id="medical_certificate" class="form-control rounded-0">
                                 </div>
+
                             </div>
                         </div>
                     </form>
@@ -100,13 +102,18 @@
         
     <script>
         function computeCredit(){
+            
             var leaveType = $('#leave_type').val();
             var startDate = new Date($('#start_Date').val());
             var endDate = new Date($('#end_Date').val());
             var leaveLength = $('#leave_length').val();
             var days;
             var creditCost;
-            
+            if(leaveType == 2){
+                $('#medCert_upload').show();
+            } else {
+                $('#medCert_upload').hide();
+            }
             days = (endDate - startDate) / (1000 * 3600 * 24);
            
             if(leaveLength == 'whole'){
@@ -128,21 +135,36 @@
             var days = $('#days').val();
             var cost = $('#cost').val();
             var reason = $('#reason').val();
-
-            var formData = new FormData();
-            formData.append('empId', empId);
-            formData.append('type', type);
-            formData.append('sdate', sdate);
-            formData.append('edate', edate);
-            formData.append('days', days);
-            formData.append('cost', cost);
-            formData.append('reason', reason);
-            formData.append('leave_form', $('#leave_form')[0].files[0]);
-            formData.append('medical_certificate', $('#medical_certificate')[0].files[0]);
-
+            var formData;
+            var sickChecker = false;
+            if(type == 1){
+                formData = new FormData();
+                formData.append('empId', empId);
+                formData.append('type', type);
+                formData.append('sdate', sdate);
+                formData.append('edate', edate);
+                formData.append('days', days);
+                formData.append('cost', cost);
+                formData.append('reason', reason);
+                formData.append('leave_form', $('#leave_form')[0].files[0]);
+            }
+            else if(type == 2){
+                sickChecker = true;
+                formData = new FormData();
+                formData.append('empId', empId);
+                formData.append('type', type);
+                formData.append('sdate', sdate);
+                formData.append('edate', edate);
+                formData.append('days', days);
+                formData.append('cost', cost);
+                formData.append('reason', reason);
+                formData.append('leave_form', $('#leave_form')[0].files[0]);
+                formData.append('medical_certificate', $('#medical_certificate')[0].files[0]);
+            }
+           
             if(type !== "" && sdate !== "" && edate !== "" && days !== "" && reason !== ""){
                 $.post({
-                    url: '../ajax/user/new_request_ajax.php',
+                    url: sickChecker ? '../ajax/user/new_sick_request.php' : '../ajax/user/new_vac_request.php',
                     data: formData,
                     processData: false, 
                     contentType: false,  
@@ -172,7 +194,7 @@
                             Swal.fire({
                                 icon: 'error',
                                 title: 'Error',
-                                text: data,
+                                text: 'Please upload the necessary files',
                             });
                         }
                     }
