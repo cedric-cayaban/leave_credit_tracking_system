@@ -1,5 +1,5 @@
 <?php
-    require('../config.php');
+    require('../../config.php');
     $empId = $_POST['empId'];
     $fname = $_POST['fname'];
     $mname = $_POST['mname'];

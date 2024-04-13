@@ -142,7 +142,7 @@
 
     function reqAction(leaveId, action){ 
 
-        $.post('../ajax/user_request_action.php', 
+        $.post('../ajax/user/user_request_action.php', 
         {
             leaveId: leaveId,
             action: action

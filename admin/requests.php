@@ -155,7 +155,7 @@
         var vacationCredits = $('#vacationCredits' + counter).val();
         var leaveType = $('#leaveType' + counter).val();
         
-        $.post('../ajax/admin_request_action.php', 
+        $.post('../ajax/admin/admin_request_action.php', 
         {
             empId: empId,
             leaveId: leaveId,

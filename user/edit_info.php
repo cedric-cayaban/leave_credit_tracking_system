@@ -152,7 +152,7 @@
             var working_status = $('#working_status').val();
 
             if(empId !== '' || fname !== '' || mname !== '' || lname !== '' || birthdate !== '' || address !== '' || contact !== '' || employee_type !== '' || department !== '' || date_hired !== '' || working_status !== ''){
-                $.post('../ajax/save_info.php',
+                $.post('../ajax/user/save_info.php',
                 {
                     empId: empId,
                     fname: fname, 

@@ -1,5 +1,5 @@
 <?php
-    require('../config.php');
+    require('../../config.php');
     $empId = $_POST['empId'];
     $type = $_POST['type'];
     $date = $_POST['date'];

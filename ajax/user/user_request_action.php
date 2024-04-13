@@ -1,5 +1,5 @@
 <?php
-    require('../config.php');
+    require('../../config.php');
 
     $leaveId = $_POST['leaveId'];
     $action = $_POST['action'];

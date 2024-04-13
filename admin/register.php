@@ -101,7 +101,7 @@
             var username = $('#username').val();
             var password = $('#password').val();
             if(fname !== "" || mname !== "" || lname !== "" || birthdate !== "" || address !== "" || contact !== "" || username !== "" || password !== ""){
-                $.post('../ajax/ajax_register/ajax_register_admin.php',
+                $.post('../ajax/admin/ajax_register_admin.php',
                 {
                     fname: fname, 
                     mname: mname, 

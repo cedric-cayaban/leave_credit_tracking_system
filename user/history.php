@@ -49,8 +49,8 @@
 						<th>Credit Cost</th>
 						<th>Start Date</th>
                         <th>End Date</th>
-						<th>Reason</th>
 						<th>Status</th>
+                        <th>Action</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -58,6 +58,7 @@
                             if(isset($_SESSION['employee_id'])){
                                 $employeeId = $_SESSION['employee_id'];
                             }
+                            $counter = 0;
                             $reportSql = $con -> query("SELECT * FROM 
                                 employee_leave 
                                 INNER JOIN employee ON employee_leave.employee_id=employee.employee_id 
@@ -65,7 +66,16 @@
                                 WHERE employee.employee_id = '$employeeId' AND  employee_leave.status = 'Accepted' OR employee_leave.status = 'Rejected' OR employee_leave.status = 'Canceled'" 
                             );
                             while($employee = $reportSql -> fetch_assoc()){
+                                $counter++;
                         ?>
+                        <?php
+                                    echo '<input type="hidden" id="empId' . $counter . '" value="' . $employee['employee_id'] . '">';
+                                    echo '<input type="hidden" id="leaveId' . $counter . '" value="' . $employee['leave_id'] . '">';
+                                    echo '<input type="hidden" id="cost' . $counter . '" value="' . $employee['credit_cost'] . '">';
+                                    echo '<input type="hidden" id="sickCredits' . $counter . '" value="' . $employee['sick_credits'] . '">';
+                                    echo '<input type="hidden" id="vacationCredits' . $counter . '" value="' . $employee['vacation_credits'] . '">';
+                                    echo '<input type="hidden" id="leaveType' . $counter . '" value="' . $employee['leave_name'] . '">';
+                                ?>
 						<tr>
 							
 							<td><?=$employee['leave_name']?></td>
@@ -73,11 +83,7 @@
 							<td><?=$employee['credit_cost']?></td>
 							<td><?= date('F j, Y', strtotime($employee['start_date'])) ?></td>
                             <td><?= date('F j, Y', strtotime($employee['end_date'])) ?></td>
-							<td>
-                                <button class="btn btn-flat btn-default btn-sm view_application" type="button" data-reason="<?=$employee['reason']?>">
-                                    <i class="fa fa-eye text-primary"></i> View
-                                </button>
-							</td>
+				
 							<td>
                             <?php if($employee['status'] == 'Accepted'): ?>
 									<b class="text-success">Approved</b>
@@ -88,7 +94,15 @@
 								<?php else: ?>
 									<b class="text-primary">Pending</b>
 								<?php endif; ?>
+							</td>
 
+                            <td>
+                            <div class="dropdown">
+									<button class="btn btn-flat btn-default btn-sm dropdown-toggle" onclick="toggleDropdown(<?=$counter?>)" aria-expanded="false">Action</button>
+									<div class="dropdown-content" id="dropdownMenu<?=$counter?>">
+										<a href="#" onclick="reqAction('<?=($employee['leave_id'])?>', 'view')"><i class="fa fa-eye text-primary text-dark"></i> View</a>	
+									</div>
+								</div>
 							</td>
 						</tr>
 
@@ -117,30 +131,55 @@
         });
     });
 
-    $(".view_application").click(function() {
-        var reason = $(this).data('reason');
-        $('#reason').text(reason);
-        $('#applicationDetailsModal').modal('show');
-    });
+    
+
+    function toggleDropdown(counter) {
+        var dropdownContent = document.getElementById("dropdownMenu" + counter);
+        if (dropdownContent.style.display === "block") {
+            dropdownContent.style.display = "none";
+        } else {
+            dropdownContent.style.display = "block";
+        }
+    }
 
     
-    
+    function reqAction(leaveId, action){ 
+
+$.post('../ajax/user/user_request_action.php', 
+{
+    leaveId: leaveId,
+    action: action
+}, 
+function(data, status){
+    if(data === 'cancelled'){ 
+        $('#contents').load('requests.php');
+    }
+    else if(data === 'error'){
+        $('#employeeInfo').html('No data');
+        $('#employeeModal').modal('show');
+    }
+    else{
+        $('#employeeInfo').html(data);
+        $('#employeeModal').modal('show');
+    }
+});
+}
     
 </script>
 
-<div class="modal fade" id="applicationDetailsModal" tabindex="-1" aria-labelledby="applicationDetailsModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg" style="max-width: 600px;"> 
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="applicationDetailsModalLabel"> Reason of leave:</h5>
-                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p id="reason"></p>
-            </div>
-        </div>
-    </div>
-</div>
+    <div class="modal fade" id="employeeModal" tabindex="-1" aria-labelledby="employeeModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="employeeModalLabel">Leave Information</h5>
+					<button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body" id="employeeInfo">
+				
+				</div>
+			</div>
+		</div>
+	</div>
 
 
 

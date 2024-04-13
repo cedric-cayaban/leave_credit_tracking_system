@@ -129,7 +129,7 @@
             var cost = $('#cost').val();
             var reason = $('#reason').val();
             if(type !== "" || sdate !== "" || edate !== "" ||  !== "" || reason !== ""){
-                $.post('../ajax/new_request_ajax.php',
+                $.post('../ajax/user/new_request_ajax.php',
                 {
                     empId: empId,
                     type: type,

@@ -142,7 +142,7 @@
     function accAction(counter, action){
         var empId = $('#empId' + counter).val();
         
-        $.post('../ajax/acc_action.php', 
+        $.post('../ajax/admin/acc_action.php', 
         {
             empId: empId,
             action: action
