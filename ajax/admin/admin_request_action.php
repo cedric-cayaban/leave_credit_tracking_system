@@ -8,6 +8,10 @@
     $vacationCredits = $_POST['vacationCredits'];
     $sickCredits = $_POST['sickCredits'];
     $leaveType = $_POST['leaveType'];
+
+    if(isset($_POST['rejectReason']) && !empty($_POST['rejectReason'])) {
+        $rejectReason = $_POST['rejectReason'];
+    }
    
 
     if($action == 'accept'){
@@ -55,7 +59,7 @@
         }
     }
     else if($action == 'reject'){
-        $rejectLeaveSql = $con -> query("UPDATE employee_leave SET employee_leave.status = 'Rejected' WHERE employee_leave.leave_id = '$leaveId'");
+        $rejectLeaveSql = $con -> query("UPDATE employee_leave SET employee_leave.status = 'Rejected', employee_leave.reject_reason = '$rejectReason' WHERE employee_leave.leave_id = '$leaveId'");
         if($rejectLeaveSql){
             echo 'success';
         }
@@ -63,6 +67,8 @@
     else{
         echo 'error';
     }
+
+
     
 
 ?>

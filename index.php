@@ -58,6 +58,11 @@
                         window.location.href = 'admin/home.php';
                         
                     }
+                    else if(data === 'success3'){
+                        
+                        window.location.href = 'superAdmin/';
+                        
+                    }
                     else{
                         $('#message').html('Invalid credentials').css('color', 'red');
                     }

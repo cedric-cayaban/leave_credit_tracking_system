@@ -120,7 +120,7 @@
                                 <div class="dropdown-content" id="actionMenu<?=$counter?>">
                                 <a href="#" onclick="reqAction(<?=$counter?>, 'view')"><i class="fa fa-eye text-primary"></i> View</a>
                                     <a href="#" onclick="reqAction(<?=$counter?>, 'accept')"><i class="fa-solid fa-circle-check text-success"></i> Accept</a>
-                                    <a href="#" onclick="reqAction(<?=$counter?>, 'reject')"><i class="fa-solid fa-circle-xmark text-danger"></i> Reject</a>
+                                    <a href="#" onclick="rejectAction(<?=$counter?>, 'reject')"><i class="fa-solid fa-circle-xmark text-danger"></i> Reject</a>
                                 </div>
                             </div>
 
@@ -210,24 +210,59 @@
     });
 
     function selectForm(formType, counter) {
-    var fileName;
-    if (formType === 'medical') {
-        fileName = $('#medicalCertificate' + counter).val();
-        if (fileName) {
-            window.open('images/' + fileName, '_blank');
-        } else {
-            alert('No medical certificate uploaded.');
+        var fileName;
+        if (formType === 'medical') {
+            fileName = $('#medicalCertificate' + counter).val();
+            if (fileName) {
+                window.open('images/' + fileName, '_blank');
+            } else {
+                alert('No medical certificate uploaded.');
+            }
+        } else if (formType === 'leave') {
+            fileName = $('#leaveForm' + counter).val();
+            if (fileName) {
+                window.open('images/' + fileName, '_blank');
+            } else {
+                alert('No leave form uploaded.');
+            }
         }
-    } else if (formType === 'leave') {
-        fileName = $('#leaveForm' + counter).val();
-        if (fileName) {
-            window.open('images/' + fileName, '_blank');
-        } else {
-            alert('No leave form uploaded.');
-        }
+        $('#formsModal').modal('hide');
     }
-    $('#formsModal').modal('hide');
-}
+
+    function rejectAction(counter, action) {
+       
+        $('#rejectionReasonModal').modal('show');
+
+        $('#confirmRejection').click(function() {
+           
+            var rejectReason = $('#rejectionReason').val();
+
+           
+            $.post('../ajax/admin/admin_request_action.php', {
+                empId: $('#empId' + counter).val(),
+                leaveId: $('#leaveId' + counter).val(),
+                cost: $('#cost' + counter).val(),
+                action: action,
+                leaveType: $('#leaveType' + counter).val(),
+                sickCredits: $('#sickCredits' + counter).val(),
+                vacationCredits: $('#vacationCredits' + counter).val(),
+                rejectReason: rejectReason 
+            }, function(data, status) {
+                if (data === 'success') {
+                    $('#rejectionReasonModal').modal('hide');
+                    $('#contents').load('requests.php');
+                } else if (data === 'error') {
+                    alert(data);
+                }
+                else{
+                    alert(data);
+                }
+            });
+
+            
+            $('#rejectionReasonModal').modal('hide');
+        });
+    }
 
 
  
@@ -246,6 +281,24 @@
 			</div>
 		</div>
 	</div>
+
+    <div class="modal fade" id="rejectionReasonModal" tabindex="-1" aria-labelledby="rejectionReasonModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="rejectionReasonModalLabel">Enter Rejection Reason</h5>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <textarea id="rejectionReason" class="form-control" placeholder="Enter reason for rejection"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="confirmRejection">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="modal fade" id="formsModal" tabindex="-1" aria-labelledby="formsModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">

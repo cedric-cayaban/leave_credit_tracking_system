@@ -47,7 +47,15 @@
                 
             </div>
             
-           
+            <div class="mb-5 p-2"> 
+                <ul class="nav nav-pills flex-column mt-4">
+                    <li class="nav-item py-2 py-sm-0">
+                        <a href="#" class="nav-link text-white" onclick="logout()">
+                            <i class="fas fa-angle-left"></i><span class="fs-5 ms-3 d-none d-sm-inline"><b>Logout</b></span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
            
             
         </div>

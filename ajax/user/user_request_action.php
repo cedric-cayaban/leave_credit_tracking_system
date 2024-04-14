@@ -32,6 +32,17 @@
             echo 'cancelled';
         }
     }
+    else if($action == 'reason'){
+        $employeeInfoSql = $con->query("SELECT * FROM 
+                                    employee_leave 
+                                    INNER JOIN employee ON employee_leave.employee_id=employee.employee_id 
+                                    INNER JOIN leave_type ON employee_leave.leave_type = leave_type.type_id 
+                                    WHERE leave_id = '$leaveId'");
+        if($employeeInfoSql){
+            $reason = $employeeInfoSql -> fetch_assoc();
+            echo $reason['reject_reason'];
+        }
+    }
     else{
         echo 'error';
     }

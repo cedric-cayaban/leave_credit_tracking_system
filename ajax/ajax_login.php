@@ -7,6 +7,7 @@
     
     $employeeSql = $con -> query("SELECT * FROM employee WHERE employee.username = '$username' AND employee.password = '$password' AND employee.acc_status = 'Accepted'");
     $adminSql = $con -> query("SELECT * FROM admin WHERE admin.username = '$username' AND admin.password = '$password' AND admin.acc_status = 'Accepted'");
+    $superAdminSql = $con -> query("SELECT * FROM super_admin WHERE super_admin.username = '$username' AND super_admin.password = '$password'");
 
     if(mysqli_num_rows($employeeSql) >=1 ){
         $employee = $employeeSql -> fetch_assoc();
@@ -23,6 +24,14 @@
             $_SESSION['admin_id'] = $admin['admin_id'];
             $_SESSION['department'] = $admin['department'];
             echo 'success2';
+           
+        }
+        
+    }
+    else if(mysqli_num_rows($superAdminSql) >=1 ){
+        $superAdmin = $superAdminSql -> fetch_assoc();
+        if($username == $superAdmin['username'] && $password == $superAdmin['password']){
+            echo 'success3';
            
         }
         

@@ -159,7 +159,7 @@
                                         <?php } ?>
                                     </td>
 
-                                    <!-- <td> / <br><br> /</td> -->
+                                    <!-- <td style="text-align: center;"> / <br><br> /</td> -->
                                 </tr>
                                 
                                 </tbody>
@@ -169,8 +169,8 @@
                     
                     <div class="col-md-8 col-sm-12 py-5">
                     <div id="bottom-box" class="callout px-3 py-3 d-flex flex-column align-items-center justify-content-center ">
-                        <h5>Leave History</h5>
-                        <button id='view-records' onclick="loadCredits('history.php')" class="btn btn-primary mt-3">View</button>
+                        <h5>Apply Leave</h5>
+                        <button id='view-records' onclick="loadContent('new_request.php')" class="btn btn-primary mt-3"><span class="fas fa-plus"></span> Create new</button>
                     </div>
 
                     </div>
