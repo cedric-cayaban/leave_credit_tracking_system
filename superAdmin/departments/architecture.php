@@ -29,6 +29,7 @@
 	<div class="card-header d-flex justify-content-between">
 		<h3 class="card-title">Architecture Leave Reports</h3>
         <div class="card-tools">
+            <button class="btn btn-flat btn-primary" onclick="exportToCSV()">Export CSV</button>  
 			<a href="#" onclick="loadContent('most_leaves/architecture.php')" class="btn btn-flat btn-primary"><span class="fas fa-user"></span>  Most Leaves</a>
 		</div>
         
@@ -64,8 +65,9 @@
                             employee_leave 
                             INNER JOIN employee ON employee_leave.employee_id=employee.employee_id 
                             INNER JOIN leave_type ON employee_leave.leave_type = leave_type.type_id 
-                            WHERE employee.department = 2 AND employee_leave.status = 'Accepted' OR employee_leave.status = 'Rejected'"
+                            WHERE employee.department = 2 AND (employee_leave.status = 'Accepted' OR employee_leave.status = 'Rejected')"
                             );
+
                             while($employee = $reportSql -> fetch_assoc()){
                         ?>
 						<tr>
@@ -120,6 +122,10 @@
             searching: true
         });
     });
+
+    function exportToCSV() {
+        window.location.href = '../ajax/super_admin/export_architecture.php';
+    }
 
     $(".view_application").click(function() {
         var reason = $(this).data('reason');

@@ -34,6 +34,7 @@
             "); 
             while($employee = $infoSql -> fetch_assoc()){
     ?>
+    
    <div class="header">
         <h1>Employee Information</h1>
     </div>

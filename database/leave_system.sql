@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 02, 2024 at 08:13 PM
+-- Generation Time: Apr 15, 2024 at 03:36 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -50,15 +50,16 @@ INSERT INTO `academic_rank` (`rank_id`, `rank_name`) VALUES
 --
 
 CREATE TABLE `admin` (
-  `admin_id` int(11) NOT NULL,
+  `admin_id` varchar(20) NOT NULL,
   `username` varchar(50) NOT NULL,
   `password` varchar(50) NOT NULL,
+  `acc_status` varchar(20) NOT NULL,
   `fname` varchar(50) NOT NULL,
   `mname` varchar(50) NOT NULL,
   `lname` varchar(50) NOT NULL,
   `birthdate` date DEFAULT NULL,
   `address` varchar(100) NOT NULL,
-  `contact` int(11) NOT NULL,
+  `contact` bigint(11) NOT NULL,
   `department` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
@@ -66,10 +67,9 @@ CREATE TABLE `admin` (
 -- Dumping data for table `admin`
 --
 
-INSERT INTO `admin` (`admin_id`, `username`, `password`, `fname`, `mname`, `lname`, `birthdate`, `address`, `contact`, `department`) VALUES
-(1, 'admin', 'admin123', 'test fname', 'test mname', 'test lname', NULL, 'test address', 918273656, 6),
-(10, 'test', 'test', 'test', 'test', 'test', '2024-03-12', 'test', 1, 2),
-(11, 'a', 'a', 'a', 'a', 'a', '2024-03-19', 'a', 1, 2);
+INSERT INTO `admin` (`admin_id`, `username`, `password`, `acc_status`, `fname`, `mname`, `lname`, `birthdate`, `address`, `contact`, `department`) VALUES
+('1', 'admin', 'admin123', 'Accepted', 'test fname', 'test mname', 'test lname', '2024-04-03', 'test address', 918273656, 6),
+('adminId', 'test', 'test', 'Accepted', 'a', 'a', 'a', '2024-04-24', 'a', 12312321, 2);
 
 -- --------------------------------------------------------
 
@@ -134,10 +134,12 @@ CREATE TABLE `employee` (
   `sick_credits` float DEFAULT NULL,
   `vacation_credits` float DEFAULT NULL,
   `birthdate` date NOT NULL,
-  `contact` int(11) NOT NULL,
+  `contact` bigint(11) NOT NULL,
+  `date_hired` date DEFAULT NULL,
   `address` varchar(100) NOT NULL,
   `department` int(11) NOT NULL,
   `employee_type` int(11) NOT NULL,
+  `working_status` int(11) DEFAULT NULL,
   `academic_rank` int(11) DEFAULT NULL,
   `designation` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
@@ -146,12 +148,13 @@ CREATE TABLE `employee` (
 -- Dumping data for table `employee`
 --
 
-INSERT INTO `employee` (`employee_id`, `username`, `password`, `acc_status`, `fname`, `mname`, `lname`, `sick_credits`, `vacation_credits`, `birthdate`, `contact`, `address`, `department`, `employee_type`, `academic_rank`, `designation`) VALUES
-('21-UR-0111', 'leng', 'leng123', 'Pending', 'Justin Gerald', 'G', 'Loleng', 0, 10, '2024-04-14', 2147483647, 'urda', 6, 2, NULL, NULL),
-('21-UR-0183', 'ced', 'ced123', 'Accepted', 'Cedric Joel', 'Fernandez', 'Cayaban', 2, 5, '2024-03-11', 2147483647, 'Macarang', 6, 2, 3, NULL),
-('21-UR-0186', 'a', 'a', 'Accepted', 'Christopherson', 'Callo', 'Carpio', 0, 10, '2024-03-10', 2147483647, 'Mangats', 3, 1, 1, 2),
-('22-UR-0001', 'mak', 'mak123', 'Accepted', 'mak', 'Banga', 'biag', 0, 0, '2024-04-02', 2147483647, 'aguilar', 6, 1, 1, NULL),
-('test ID', 'test', 'test123', 'Pending', 'test name', 'test name', 'test lname', 0, 10, '2024-01-16', 918273656, 'a', 4, 1, 1, 2);
+INSERT INTO `employee` (`employee_id`, `username`, `password`, `acc_status`, `fname`, `mname`, `lname`, `sick_credits`, `vacation_credits`, `birthdate`, `contact`, `date_hired`, `address`, `department`, `employee_type`, `working_status`, `academic_rank`, `designation`) VALUES
+('21-UR-0111', 'leng', 'leng123', 'Accepted', 'Justin Gerald', 'G', 'Loleng', 14.24, 9.24, '2024-04-14', 2147483647, '2023-04-13', 'urda', 6, 2, NULL, NULL, NULL),
+('21-UR-0183', 'ced', 'ced123', 'Accepted', 'Cedric Joel', 'F', 'Cayaban', 2.98, 1.98, '2024-03-11', 9099501718, '2024-01-10', 'Macarang', 6, 2, 3, 3, NULL),
+('21-UR-0186', 'a', 'a', 'Accepted', 'Christopherson', 'Callo', 'Carpio', 0, 10, '2024-03-10', 2147483647, NULL, 'Mangats', 3, 1, NULL, 1, 2),
+('21-UR0125', 'lianna', 'lianna123', 'Accepted', 'Lianna Jane', 'Nuto', 'Garlitos', 0, 0, '2002-09-26', 2147483647, NULL, 'Baracbac', 6, 1, 3, NULL, NULL),
+('22-UR-0001', 'mak', 'mak123', 'Accepted', 'mak', 'Banga', 'biag', 0, 0, '2024-04-02', 2147483647, NULL, 'aguilar', 6, 1, 3, 1, NULL),
+('test ID', 'test', 'test123', 'Pending', 'test name', 'test name', 'test lname', 0, 10, '2024-01-16', 918273656, NULL, 'a', 4, 1, 3, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -163,27 +166,35 @@ CREATE TABLE `employee_leave` (
   `leave_id` int(11) NOT NULL,
   `employee_id` varchar(20) NOT NULL,
   `leave_type` int(11) NOT NULL,
-  `date` date NOT NULL,
+  `start_date` date NOT NULL,
+  `end_date` date DEFAULT NULL,
   `status` varchar(50) NOT NULL,
   `reason` varchar(150) NOT NULL,
+  `leave_form` text NOT NULL,
+  `med_cert` text DEFAULT NULL,
   `days` float NOT NULL,
-  `credit_cost` float NOT NULL
+  `credit_cost` float NOT NULL,
+  `reject_reason` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `employee_leave`
 --
 
-INSERT INTO `employee_leave` (`leave_id`, `employee_id`, `leave_type`, `date`, `status`, `reason`, `days`, `credit_cost`) VALUES
-(5, '21-UR-0183', 1, '2024-03-17', 'Accepted', 'sick', 0.5, 0.5),
-(6, '21-UR-0186', 2, '2024-03-19', 'Accepted', 'sick na', 1, 1),
-(7, '21-UR-0183', 1, '2024-03-12', 'Accepted', 'pagod na', 1, 1),
-(8, '21-UR-0186', 1, '2024-03-05', 'Pending', 'im sick as heck', 1, 1),
-(9, '21-UR-0183', 1, '2024-02-06', 'Accepted', 'dunno', 1, 1),
-(10, '21-UR-0183', 1, '2024-04-01', 'Accepted', 'need some rest', 1, 0.5),
-(11, '21-UR-0183', 2, '2024-04-02', 'Pending', 'im sick', 2, 2),
-(12, '21-UR-0183', 1, '2024-04-03', 'Canceled', 'sick', 0.5, 0.5),
-(13, '21-UR-0183', 1, '2024-04-03', 'Canceled', 'im sick', 0.5, 0);
+INSERT INTO `employee_leave` (`leave_id`, `employee_id`, `leave_type`, `start_date`, `end_date`, `status`, `reason`, `leave_form`, `med_cert`, `days`, `credit_cost`, `reject_reason`) VALUES
+(18, '21-UR-0183', 1, '2024-04-14', '2024-04-15', 'Accepted', 'sick', '', NULL, 0.5, 0.5, ''),
+(19, '21-UR-0183', 1, '2024-04-13', '2024-04-14', 'Accepted', 's', '', NULL, 1, 1, ''),
+(20, '21-UR-0111', 1, '2024-04-14', '2024-04-15', 'Accepted', 'tired', '', NULL, 1, 1, ''),
+(21, '21-UR-0183', 1, '2024-04-14', '2024-04-15', 'Rejected', 'l', '../../images/uploads/leave_forms/Bruce Warren - voice recognition - sabbatical report 2017.pdf', '../../images/uploads/medical_certificates/549.pdf', 0.5, 0.5, ''),
+(22, '21-UR-0183', 2, '2024-04-14', '2024-04-15', 'Pending', 'vgfr', '../../images/uploads/leave_forms/Endpoint_Security_Badge20240408-31-140gqf.pdf', '../../images/uploads/medical_certificates/Cyber_Threat_Management_Badge20240408-31-bwq4ba.pdf', 0.5, 0.5, ''),
+(23, '21-UR-0111', 1, '2024-04-15', '2024-04-16', 'Rejected', 'yu', '../../images/uploads/leave_forms/Group 2 - Learning Huddle CH2 .pdf', '../../images/uploads/medical_certificates/Group 2 - Learning Huddle CH3.pdf', 0.5, 0.5, ''),
+(24, '21-UR-0111', 1, '2024-04-15', '2024-04-16', 'Rejected', 'sa', '../../images/uploads/leave_forms/huddle 3.png', NULL, 0.5, 0.5, 'pls gumana ka na'),
+(25, '21-UR-0111', 2, '2024-04-15', '2024-04-16', 'Accepted', 'dsadw', '../../images/uploads/leave_forms/huddle 1.png', '../../images/uploads/medical_certificates/GE-8-Ethics-Study-Guide-for-Module-1-Updated_09192022.pdf', 0.5, 0.5, ''),
+(26, '21-UR-0111', 2, '2024-04-15', '2024-04-16', 'Rejected', 'sa', '../../images/uploads/leave_forms/Introduction_to_Cybersecurity_Badge20240407-29-ola6xb.pdf', '../../images/uploads/medical_certificates/Introduction_to_Cybersecurity_Badge20240407-29-ola6xb.pdf', 0.5, 0.5, 'ayaw ko lodi'),
+(30, '21-UR-0111', 1, '2024-04-16', '2024-04-16', 'Pending', 'sick', '../../images/uploads/leave_forms/Introduction_to_Cybersecurity_Badge20240407-29-ola6xb.pdf', NULL, 1, 1, ''),
+(31, '21-UR-0111', 1, '2024-04-16', '2024-04-16', 'Accepted', 'sick na, nilalagnat na si ced talaga', '../../images/uploads/leave_forms/Bruce Warren - voice recognition - sabbatical report 2017.pdf', NULL, 1, 1, ''),
+(32, '21-UR-0111', 1, '2024-04-16', '2024-04-17', 'Accepted', 'pagod nako', '../../images/uploads/leave_forms/wallpapersden.com_small-memory_3840x2160.jpg', NULL, 0.5, 0.5, ''),
+(33, '21-UR-0183', 2, '2024-04-16', '2024-04-16', 'Pending', 'mk', '../../images/uploads/leave_forms/Endpoint_Security_Badge20240408-31-140gqf.pdf', '../../images/uploads/medical_certificates/Group 2 - Learning Huddle CH2 .pdf', 0.5, 0.5, '');
 
 -- --------------------------------------------------------
 
@@ -223,6 +234,45 @@ INSERT INTO `leave_type` (`type_id`, `leave_name`) VALUES
 (1, 'Vacation leave'),
 (2, 'Sick leave');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `super_admin`
+--
+
+CREATE TABLE `super_admin` (
+  `super_id` int(11) NOT NULL,
+  `username` varchar(50) NOT NULL,
+  `password` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `super_admin`
+--
+
+INSERT INTO `super_admin` (`super_id`, `username`, `password`) VALUES
+(1, 'super-admin', 'super123');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `working_status`
+--
+
+CREATE TABLE `working_status` (
+  `status_id` int(11) NOT NULL,
+  `status_name` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `working_status`
+--
+
+INSERT INTO `working_status` (`status_id`, `status_name`) VALUES
+(1, 'Casual'),
+(2, 'Contractual'),
+(3, 'Regular');
+
 --
 -- Indexes for dumped tables
 --
@@ -260,7 +310,8 @@ ALTER TABLE `employee`
   ADD KEY `FK1` (`department`),
   ADD KEY `FK2` (`employee_type`),
   ADD KEY `FK3` (`academic_rank`),
-  ADD KEY `FK4` (`designation`);
+  ADD KEY `FK4` (`designation`),
+  ADD KEY `FK8` (`working_status`);
 
 --
 -- Indexes for table `employee_leave`
@@ -283,6 +334,18 @@ ALTER TABLE `leave_type`
   ADD PRIMARY KEY (`type_id`);
 
 --
+-- Indexes for table `super_admin`
+--
+ALTER TABLE `super_admin`
+  ADD PRIMARY KEY (`super_id`);
+
+--
+-- Indexes for table `working_status`
+--
+ALTER TABLE `working_status`
+  ADD PRIMARY KEY (`status_id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -291,12 +354,6 @@ ALTER TABLE `leave_type`
 --
 ALTER TABLE `academic_rank`
   MODIFY `rank_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT for table `admin`
---
-ALTER TABLE `admin`
-  MODIFY `admin_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `department`
@@ -314,7 +371,7 @@ ALTER TABLE `designation`
 -- AUTO_INCREMENT for table `employee_leave`
 --
 ALTER TABLE `employee_leave`
-  MODIFY `leave_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `leave_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `employee_type`
@@ -327,6 +384,18 @@ ALTER TABLE `employee_type`
 --
 ALTER TABLE `leave_type`
   MODIFY `type_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `super_admin`
+--
+ALTER TABLE `super_admin`
+  MODIFY `super_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `working_status`
+--
+ALTER TABLE `working_status`
+  MODIFY `status_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
@@ -345,7 +414,8 @@ ALTER TABLE `employee`
   ADD CONSTRAINT `FK1` FOREIGN KEY (`department`) REFERENCES `department` (`dept_id`),
   ADD CONSTRAINT `FK2` FOREIGN KEY (`employee_type`) REFERENCES `employee_type` (`type_id`),
   ADD CONSTRAINT `FK3` FOREIGN KEY (`academic_rank`) REFERENCES `academic_rank` (`rank_id`),
-  ADD CONSTRAINT `FK4` FOREIGN KEY (`designation`) REFERENCES `designation` (`designation_id`);
+  ADD CONSTRAINT `FK4` FOREIGN KEY (`designation`) REFERENCES `designation` (`designation_id`),
+  ADD CONSTRAINT `FK8` FOREIGN KEY (`working_status`) REFERENCES `working_status` (`status_id`);
 
 --
 -- Constraints for table `employee_leave`

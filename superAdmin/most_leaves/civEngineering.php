@@ -28,7 +28,10 @@
 <div class="card card-outline card-primary mt-4" id="load-content">
 	<div class="card-header d-flex justify-content-between">
 		<h3 class="card-title">Civil Engineering Most Leaves</h3>
-        
+        <div class="card-tools">
+            <button class="btn btn-flat btn-primary" onclick="exportToCSV()">Export CSV</button>  
+			
+		</div>
     
 	</div>
 	<div class="card-body">
@@ -109,6 +112,10 @@
             searching: true
         });
     });
+
+    function exportToCSV() {
+        window.location.href = '../ajax/super_admin/most_leaves/export_civEngineering.php';
+    }
 
     $(".view_application").click(function() {
         var reason = $(this).data('reason');

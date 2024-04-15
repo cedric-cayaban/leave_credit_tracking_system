@@ -16,13 +16,15 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-KyZXEAg3QhqLMpG8r+I4dHt0YIvI3Mpjs4L+AdfYqlA3oWeBSwF8umNikyJZYhEN" crossorigin="anonymous"></script>
         <title>Document</title>
     </head>
-
+    <style>
+         h5 {
+            font-weight: normal;
+        }
+    </style>
     <body>
-    <div class="card">
-        <div class="card-body">
-            <?php 
-                if(isset($_SESSION['employee_id'])){
-                    $employeeId = $_SESSION['employee_id'];
+        <?php 
+            if(isset($_SESSION['employee_id'])){
+                $employeeId = $_SESSION['employee_id'];
                 }
                 $infoSql = $con -> query("SELECT *
                 FROM employee 
@@ -35,9 +37,17 @@
                 WHERE employee.employee_id = '$employeeId'
                 "); 
                 while($employee = $infoSql -> fetch_assoc()){
-            ?>
+        ?>
+   
+    
+            <div class="card">
+                <div class="card-body">
+                <div class="infos d-flex justify-content-between mb-1 mx-3">
+                <h5 id="clock"></h5>
+                <h5><?=$employee['fname'] . " " . $employee['lname']?></h5>
+            </div>
             <div class="w-100 d-flex justify-content-between mb-3 my-3">
-                <h2>My Information</h2>
+                <h1>Welcome to Leave Credit Tracking System</h1>
                 <a href="#" class="btn btn-flat btn-primary me-3" onclick="loadContent('edit_info.php')"><span class="fas fa-edit"></span>Edit Information</a>   
             </div>
 
@@ -197,25 +207,52 @@
         });
         
         function loadCredits(){
-        var empId = $('#empId').val();
-        var currentDate = new Date();
-        var dateHired = new Date($('#date_hired').val());
-        var dateDifference = Math.floor((currentDate - dateHired) / (1000 * 60 * 60 * 24));
-        //alert(dateDifference);
-        $.post('../ajax/user/update_credits.php', 
-        {
-            empId: empId,
-            dateDifference: dateDifference
-        },
-        function(data, status){
-            if(data === 'success'){
+            var empId = $('#empId').val();
+            var currentDate = new Date();
+            var dateHired = new Date($('#date_hired').val());
+            var dateDifference = Math.floor((currentDate - dateHired) / (1000 * 60 * 60 * 24));
+            //alert(dateDifference);
+            $.post('../ajax/user/update_credits.php', 
+            {
+                empId: empId,
+                dateDifference: dateDifference
+            },
+            function(data, status){
+                if(data === 'success'){
+                    
+                }else{
+                    alert(data);
+                }
                 
-            }else{
-                alert(data);
-            }
-            
-        });
-}
+            });
+        }
+
+        function updateClock() {
+        var now = new Date();
+        
+        
+        var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        var month = months[now.getMonth()];
+        var date = now.getDate();
+        var year = now.getFullYear();
+        var dateString = month + ' ' + date + ', ' + year;
+
+        
+        var hours = now.getHours();
+        var ampm = hours >= 12 ? 'PM' : 'AM';
+        hours = hours % 12;
+        hours = hours ? hours : 12;
+        var minutes = now.getMinutes();
+        var timeString = hours.toString().padStart(2, '0') + ':' + minutes.toString().padStart(2, '0') + ' ' + ampm;
+
+        document.getElementById('clock').innerHTML = dateString + ' - ' + timeString;
+        }
+
+    
+        setInterval(updateClock, 1000);
+
+        
+        updateClock();
         
 
     </script>

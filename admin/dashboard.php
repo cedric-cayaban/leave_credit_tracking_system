@@ -44,8 +44,9 @@
                         $pendingLeave = $con->query("SELECT COUNT(*) AS pending_count
                         FROM employee_leave
                         INNER JOIN employee ON employee_leave.employee_id = employee.employee_id
-                        WHERE employee_leave.status = 'Pending' AND employee.department = '$adminDept'
-                        ")->fetch_assoc()['pending_count'];
+                        WHERE employee_leave.status = 'Pending' AND employee.department = '$adminDept'"
+                        )->fetch_assoc()['pending_count'];
+
 
                         echo number_format($pendingLeave);
                     ?>
@@ -68,7 +69,10 @@
                    if(isset($_SESSION['department'])){
                       $adminDept = $_SESSION['department'];
                     }
-                    $pendingAccount = $con->query("SELECT COUNT(*) AS pending_count FROM employee WHERE acc_status = 'Pending' and department = '$adminDept'")->fetch_assoc()['pending_count'];
+                    $pendingAccount = $con->query("SELECT COUNT(*) AS pending_count 
+                                FROM employee 
+                                WHERE acc_status = 'Pending' AND department = '$adminDept'"
+                            )->fetch_assoc()['pending_count'];
                     echo number_format($pendingAccount);
                   ?>
                 </span>
@@ -93,7 +97,7 @@
                     FROM employee_leave
                     INNER JOIN employee ON employee_leave.employee_id = employee.employee_id
                     WHERE employee.department = '$adminDept' AND
-                    status = 'Accepted' OR status = 'Rejected'"
+                    (status = 'Accepted' OR status = 'Rejected')"
                     )->fetch_assoc()['pending_count'];
                     echo number_format($totalReports);
                   ?>
