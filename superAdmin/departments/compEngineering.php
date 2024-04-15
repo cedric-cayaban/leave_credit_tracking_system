@@ -29,7 +29,7 @@
 	<div class="card-header d-flex justify-content-between">
 		<h3 class="card-title">Computer Engineering Leave Reports</h3>
         <div class="card-tools">
-        <button class="btn btn-flat btn-primary" onclick="exportToCSV()">Export CSV</button>  
+        <button class="btn btn-flat btn-primary" onclick="exportPDF()">Download PDF</button>  
 			<a href="#" onclick="loadContent('most_leaves/compEngineering.php')" class="btn btn-flat btn-primary"><span class="fas fa-user"></span>  Most Leaves</a>
 		</div>
         
@@ -123,7 +123,7 @@
         });
     });
 
-    function exportToCSV() {
+    function exportPDF() {
         window.location.href = '../ajax/super_admin/export_compEngineering.php';
     }
 

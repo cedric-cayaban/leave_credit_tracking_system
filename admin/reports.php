@@ -29,7 +29,7 @@
 	<div class="card-header d-flex justify-content-between">
 		<h3 class="card-title">Leave Report History</h3>
 		<div class="d-flex">
-            <button class="btn btn-sm btn-primary mx-2" onclick="exportToCSV()">Export CSV</button>  
+            <button class="btn btn-sm btn-primary mx-2" onclick="generatePDF()">Download PDF</button>  
         </div>
 	</div>
 	<div class="card-body">
@@ -108,7 +108,7 @@
         });
     });
 
-    function exportToCSV() {
+    function generatePDF() {
         window.location.href = '../ajax/admin/export_reports.php';
     }
 

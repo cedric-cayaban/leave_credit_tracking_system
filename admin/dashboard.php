@@ -21,7 +21,20 @@
 
 </style>
 <body>
-<div class="card card-outline card-primary mt-4" id="load-content">
+<?php 
+  if(isset($_SESSION['admin_id'])){
+      $adminId = $_SESSION['admin_id'];
+  }
+    $pendingLeave = $con->query("SELECT * FROM admin 
+    WHERE admin.admin_id = '$adminId'");
+    while($admin = $pendingLeave -> fetch_assoc()){
+    ?>
+    <div class="infos d-flex justify-content-between mt-4 mx-3">
+      <h5 id="clock"></h5>
+      <h5><?=$admin['fname'] . " " . $admin['lname']?></h5>
+    </div>
+    <?php } ?>
+<div class="card card-outline card-primary mt-2" id="load-content">
 	<div class="card-header d-flex justify-content-between">
 		<h1 class="card-title">Welcome to Leave Credit Tracking System</h1>
 		
@@ -120,6 +133,33 @@
  
  
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script>
+      function updateClock() {
+        var now = new Date();
+        
+        
+        var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        var month = months[now.getMonth()];
+        var date = now.getDate();
+        var year = now.getFullYear();
+        var dateString = month + ' ' + date + ', ' + year;
+
+        
+        var hours = now.getHours();
+        var ampm = hours >= 12 ? 'PM' : 'AM';
+        hours = hours % 12;
+        hours = hours ? hours : 12;
+        var minutes = now.getMinutes();
+        var timeString = hours.toString().padStart(2, '0') + ':' + minutes.toString().padStart(2, '0') + ' ' + ampm;
+
+        document.getElementById('clock').innerHTML = dateString + ' - ' + timeString;
+        }
+
     
+        setInterval(updateClock, 1000);
+
+        
+        updateClock();
+    </script>
 </body>
 </html>

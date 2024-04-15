@@ -17,7 +17,8 @@
             <div class="card-header d-flex justify-content-between">
                 <h3 class="card-title">Leave Report History</h3>
                 <div class="d-flex">
-                    <button class="btn btn-sm btn-primary mx-2" onclick="exportToCSV()">Export CSV</button>  
+                <button class="btn btn-sm btn-primary mx-2" onclick="generatePDF()">Download PDF</button>
+ 
                 </div>
             </div>
             <div class="card-body">
@@ -116,20 +117,26 @@
                 </div>
             </div>
         </div>
-
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-KyZXEAg3QhqLMpG8r+I4dHt0YIvI3Mpjs4L+AdfYqlA3oWeBSwF8umNikyJZYhEN" crossorigin="anonymous"></script>
-        <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-        <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
         
         <script>
             $(document).ready(function() {
                 $('#tableData').DataTable();
             });
 
-            function exportToCSV() {
-                 window.location.href = '../ajax/user/export_leaves.php';
+            function generatePDF() {
+                window.location.href = '../ajax/user/export_leaves.php';
             }
+
+
+
+
+
+
+
 
 
 
