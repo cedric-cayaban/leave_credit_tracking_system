@@ -105,7 +105,7 @@
             var department = $('#department').val();
             var username = $('#username').val();
             var password = $('#password').val();
-            if(fname !== "" && mname !== "" && lname !== "" && birthdate !== "" && address !== "" && contact !== "" && username !== "" && password !== ""){
+            if(adminId !== "" && fname !== "" && mname !== "" && lname !== "" && birthdate !== "" && address !== "" && contact !== "" && username !== "" && password !== ""){
                 $.post('../ajax/admin/ajax_register_admin.php',
                 {
                     adminId: adminId,
