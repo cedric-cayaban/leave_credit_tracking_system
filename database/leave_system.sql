@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 15, 2024 at 08:08 PM
+-- Generation Time: Apr 16, 2024 at 03:45 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -68,8 +68,9 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`admin_id`, `username`, `password`, `acc_status`, `fname`, `mname`, `lname`, `birthdate`, `address`, `contact`, `department`) VALUES
-('1', 'admin', 'admin123', 'Accepted', 'test fname', 'test mname', 'test lname', '2024-04-03', 'test address', 918273656, 6),
-('adminId', 'test', 'test', 'Accepted', 'a', 'a', 'a', '2024-04-24', 'a', 12312321, 2);
+('1', 'admin', 'admin123', 'Accepted', 'Marvin', 'test mname', 'Lagasca', '2024-04-03', 'test address', 918273656, 6),
+('adminId', 'test', 'test', 'Accepted', 'a', 'a', 'a', '2024-04-24', 'a', 12312321, 2),
+('test', 'test', 'test123', 'Pending', 'test', 'test', 'test', '2024-04-16', 'test', 1343, 1);
 
 -- --------------------------------------------------------
 
@@ -150,11 +151,14 @@ CREATE TABLE `employee` (
 
 INSERT INTO `employee` (`employee_id`, `username`, `password`, `acc_status`, `fname`, `mname`, `lname`, `sick_credits`, `vacation_credits`, `birthdate`, `contact`, `date_hired`, `address`, `department`, `employee_type`, `working_status`, `academic_rank`, `designation`) VALUES
 ('21-UR-0111', 'leng', 'leng123', 'Accepted', 'Justin Gerald', 'G', 'Loleng', 14.24, 9.24, '2024-04-14', 2147483647, '2023-04-13', 'urda', 6, 2, NULL, NULL, NULL),
-('21-UR-0183', 'ced', 'ced123', 'Accepted', 'Cedric Joel', 'F', 'Cayaban', 2.98, 1.98, '2024-03-11', 9099501718, '2024-01-10', 'Macarang', 6, 2, 3, 3, NULL),
+('21-UR-0183', 'ced', 'ced123', 'Accepted', 'Cedric Joel', 'F', 'Cayaban', 3.02, 2.02, '2024-03-11', 9099501718, '2024-01-10', 'Macarang', 6, 2, 3, 3, NULL),
 ('21-UR-0186', 'a', 'a', 'Accepted', 'Christopherson', 'Callo', 'Carpio', 0, 10, '2024-03-10', 2147483647, NULL, 'Mangats', 3, 1, NULL, 1, 2),
 ('21-UR0125', 'lianna', 'lianna123', 'Accepted', 'Lianna Jane', 'Nuto', 'Garlitos', 0, 0, '2002-09-26', 2147483647, NULL, 'Baracbac', 6, 1, 3, NULL, NULL),
 ('22-UR-0001', 'mak', 'mak123', 'Accepted', 'mak', 'Banga', 'biag', 0, 0, '2024-04-02', 2147483647, NULL, 'aguilar', 6, 1, 3, 1, NULL),
-('test ID', 'test', 'test123', 'Pending', 'test name', 'test name', 'test lname', 0, 10, '2024-01-16', 918273656, NULL, 'a', 4, 1, 3, 1, 2);
+('a', 'a', 'a', 'Pending', 'a', 'a', 'a', 0, 0, '2024-04-14', 1, '2024-04-22', 'a', 3, 2, 1, 1, 1),
+('test', 'test', 'test123', 'Pending', 'test', 'test', 'test', 0, 0, '2024-04-16', 12324, '2024-04-15', 'test', 3, 2, 3, 2, 2),
+('test ID', 'test', 'test123', 'Pending', 'test name', 'test name', 'test lname', 0, 10, '2024-01-16', 918273656, NULL, 'a', 4, 1, 3, 1, 2),
+('ulit', 'ulit', 'ulit123', 'Pending', 'ulit', 'ulit', 'ulit', 0, 0, '2024-04-15', 12348761, '2024-04-16', 'ulit', 4, 2, 1, 3, 3);
 
 -- --------------------------------------------------------
 
