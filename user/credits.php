@@ -228,31 +228,34 @@
         }
 
         function updateClock() {
-        var now = new Date();
-        
-        
-        var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-        var month = months[now.getMonth()];
-        var date = now.getDate();
-        var year = now.getFullYear();
-        var dateString = month + ' ' + date + ', ' + year;
+            var now = new Date();
 
-        
-        var hours = now.getHours();
-        var ampm = hours >= 12 ? 'PM' : 'AM';
-        hours = hours % 12;
-        hours = hours ? hours : 12;
-        var minutes = now.getMinutes();
-        var timeString = hours.toString().padStart(2, '0') + ':' + minutes.toString().padStart(2, '0') + ' ' + ampm;
+            var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+            var month = months[now.getMonth()];
+            var date = now.getDate();
+            var year = now.getFullYear();
+            var dateString = month + ' ' + date + ', ' + year;
 
-        document.getElementById('clock').innerHTML = dateString + ' - ' + timeString;
+            var hours = now.getHours();
+            var ampm = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12;
+            hours = hours ? hours : 12;
+            var minutes = now.getMinutes();
+            var seconds = now.getSeconds();
+            
+            var timeString = ' ' + ampm + ' - ' + hours + ':' + 
+                            (minutes < 10 ? '0' : '') + minutes + ':' +
+                            (seconds < 10 ? '0' : '') + seconds 
+                            ;
+
+            document.getElementById('clock').innerHTML = dateString + ' <br> ' + timeString;
         }
 
-    
         setInterval(updateClock, 1000);
 
-        
         updateClock();
+
+
         
 
     </script>
