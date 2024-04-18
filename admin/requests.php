@@ -54,7 +54,7 @@
 						<th>Leave Type</th>
 						<th>Start date</th>
                         <th>End date</th>
-						<th>Forms</th>
+						<th>Uploads</th>
 						<th>Action</th>
 					</tr>
 				</thead>
@@ -250,7 +250,7 @@
             }, function(data, status) {
                 if (data === 'success') {
                     $('#rejectionReasonModal').modal('hide');
-                    $('#contents').load('requests.php');
+                    // $('#contents').load('requests.php');
                 } else if (data === 'error') {
                     alert(data);
                 }
@@ -260,7 +260,7 @@
             });
 
             
-            $('#rejectionReasonModal').modal('hide');
+            $('#contents').load('requests.php');
         });
     }
 
@@ -315,7 +315,6 @@
                                 }
                             
                             ?>
-
                             <button class="btn btn-primary" onclick="selectForm('leave', <?=$counter?>)">Leave Form</button>
                         </div>
                     </div>
